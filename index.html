@@ -10,12 +10,12 @@
       --parchment: #f3e7c9;
       --ink: #302316;
       --gold: #d3a64a;
-      --panel: rgba(255, 248, 229, 0.92);
+      --panel: rgba(255, 248, 229, 0.94);
+      --green: #496b35;
+      --red: #8d3429;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       min-height: 100vh;
@@ -34,25 +34,50 @@
       border-bottom: 3px solid var(--gold);
     }
 
-    .crest {
-      font-size: 42px;
+    .crest { font-size: 42px; }
+    h1 { margin: 8px 0; font-size: clamp(2rem, 6vw, 3.5rem); }
+    header p { margin: 0; font-size: 1.15rem; }
+
+    main { max-width: 1050px; margin: 30px auto; padding: 0 18px; }
+
+    .section-title {
+      margin: 0 0 16px;
+      color: var(--parchment);
+      font-size: 1.7rem;
     }
 
-    h1 {
-      margin: 8px 0;
-      font-size: clamp(2rem, 6vw, 3.5rem);
+    .jobs-grid, .players-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
     }
 
-    header p {
-      margin: 0;
-      font-size: 1.15rem;
+    .job-card {
+      padding: 17px;
+      border: 2px solid var(--gold);
+      border-radius: 10px;
+      background: var(--panel);
+      box-shadow: 0 5px 15px #0005;
     }
 
-    main {
-      max-width: 1050px;
-      margin: 30px auto;
-      padding: 0 18px;
+    .job-card h3 { margin: 0 0 8px; font-size: 1.2rem; }
+    .job-count { margin: 0; color: var(--green); font-weight: bold; }
+    .job-count.full { color: var(--red); }
+    .job-bar {
+      height: 10px;
+      margin-top: 12px;
+      overflow: hidden;
+      border-radius: 99px;
+      background: #d7c8a9;
     }
+    .job-bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: var(--green);
+    }
+    .job-bar-fill.full { background: var(--red); }
+
+    .players-section { margin-top: 36px; }
 
     .controls {
       display: flex;
@@ -61,8 +86,7 @@
       margin-bottom: 22px;
     }
 
-    input,
-    select {
+    input, select {
       flex: 1 1 220px;
       padding: 13px 15px;
       border: 2px solid var(--gold);
@@ -72,13 +96,7 @@
       font: inherit;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 16px;
-    }
-
-    .card {
+    .player-card {
       display: flex;
       align-items: center;
       gap: 14px;
@@ -99,97 +117,111 @@
       image-rendering: pixelated;
     }
 
-    .player-info h2 {
-      margin: 0 0 8px;
-      font-size: 1.25rem;
-      overflow-wrap: anywhere;
-    }
+    .player-info h3 { margin: 0 0 8px; font-size: 1.2rem; overflow-wrap: anywhere; }
+    .player-job { color: #76501d; font-weight: bold; }
+    .empty { grid-column: 1 / -1; color: var(--parchment); text-align: center; }
 
-    .job {
-      color: #76501d;
-      font-weight: bold;
-    }
-
-    .empty {
-      grid-column: 1 / -1;
-      color: var(--parchment);
-      text-align: center;
-    }
-
-    footer {
-      padding: 25px;
-      color: var(--parchment);
-      text-align: center;
-    }
+    footer { padding: 25px; color: var(--parchment); text-align: center; }
   </style>
 </head>
-
 <body>
   <header>
     <div class="crest" aria-hidden="true">⚔️</div>
     <h1>Arcadia</h1>
-    <p>Die Bewohner und ihre Berufe</p>
+    <p>Die Bewohner, ihre Berufe und freie Plätze</p>
   </header>
 
   <main>
-    <div class="controls">
-      <input
-        id="search"
-        type="search"
-        placeholder="Spieler suchen …"
-        aria-label="Spieler suchen"
-      >
+    <section aria-labelledby="jobsTitle">
+      <h2 class="section-title" id="jobsTitle">Freie Plätze nach Beruf</h2>
+      <div id="jobs" class="jobs-grid" aria-live="polite"></div>
+    </section>
 
-      <select id="jobFilter" aria-label="Nach Beruf filtern">
-        <option value="">Alle Berufe</option>
-      </select>
-    </div>
-
-    <section id="players" class="grid" aria-live="polite"></section>
+    <section class="players-section" aria-labelledby="playersTitle">
+      <h2 class="section-title" id="playersTitle">Spielerinnen und Spieler</h2>
+      <div class="controls">
+        <input id="search" type="search" placeholder="Spieler suchen …" aria-label="Spieler suchen">
+        <select id="jobFilter" aria-label="Nach Beruf filtern">
+          <option value="">Alle Berufe</option>
+        </select>
+      </div>
+      <div id="players" class="players-grid" aria-live="polite"></div>
+    </section>
   </main>
 
-  <footer>
-    Willkommen in Arcadia – unserem mittelalterlichen Minecraft-Rollenspiel!
-  </footer>
+  <footer>Willkommen in Arcadia – unserem mittelalterlichen Minecraft-Rollenspiel!</footer>
 
   <script>
-    // Ersetze die Platzhalternamen durch eure Minecraft-Spielernamen.
-    const spieler = [
-      { name: "Fjalraven", beruf: "Magier" },
-      { name: "Spielername 2", beruf: "Schmied" },
-      { name: "Spielername 3", beruf: "Marktschreier" },
-      { name: "Spielername 4", beruf: "Bäcker" },
-      { name: "Spielername 5", beruf: "Jäger" },
-      { name: "Spielername 6", beruf: "Bauer" },
-      { name: "Spielername 7", beruf: "Metzger" },
-      { name: "Spielername 8", beruf: "Fischer" },
-      { name: "Spielername 9", beruf: "Ramschladenbesitzer" }
+    const MAX_PRO_BERUF = 10;
+    const berufe = [
+      "Schmied",
+      "Marktschreier",
+      "Magier",
+      "Bäcker",
+      "Jäger",
+      "Bauer",
+      "Metzger",
+      "Fischer",
+      "Ramschladenbesitzer"
     ];
 
+    // Hier echte Spielernamen eintragen. Platzhalter zählen nicht als Spieler.
+    const spieler = [
+      { name: "Fjalraven", beruf: "Magier" }
+    ];
+
+    const jobsEl = document.getElementById("jobs");
     const playersEl = document.getElementById("players");
     const searchEl = document.getElementById("search");
     const filterEl = document.getElementById("jobFilter");
 
-    [...new Set(spieler.map(eintrag => eintrag.beruf))]
-      .sort()
-      .forEach(beruf => {
-        const option = document.createElement("option");
-        option.value = beruf;
-        option.textContent = beruf;
-        filterEl.appendChild(option);
+    function renderJobs() {
+      jobsEl.replaceChildren();
+      berufe.forEach(beruf => {
+        const belegt = spieler.filter(spielerEintrag => spielerEintrag.beruf === beruf).length;
+        const frei = Math.max(0, MAX_PRO_BERUF - belegt);
+        const karte = document.createElement("article");
+        karte.className = "job-card";
+
+        const titel = document.createElement("h3");
+        titel.textContent = beruf;
+        const anzahl = document.createElement("p");
+        anzahl.className = `job-count${frei === 0 ? " full" : ""}`;
+        anzahl.textContent = frei === 0
+          ? `Ausgebucht (${belegt}/${MAX_PRO_BERUF})`
+          : `${frei} von ${MAX_PRO_BERUF} Plätzen frei (${belegt} belegt)`;
+        const balken = document.createElement("div");
+        balken.className = "job-bar";
+        balken.setAttribute("role", "progressbar");
+        balken.setAttribute("aria-label", `Belegte Plätze für ${beruf}`);
+        balken.setAttribute("aria-valuemin", "0");
+        balken.setAttribute("aria-valuemax", String(MAX_PRO_BERUF));
+        balken.setAttribute("aria-valuenow", String(Math.min(belegt, MAX_PRO_BERUF)));
+        const fuellung = document.createElement("div");
+        fuellung.className = `job-bar-fill${frei === 0 ? " full" : ""}`;
+        fuellung.style.width = `${Math.min(belegt / MAX_PRO_BERUF, 1) * 100}%`;
+        balken.appendChild(fuellung);
+        karte.append(titel, anzahl, balken);
+        jobsEl.appendChild(karte);
       });
+    }
+
+    berufe.forEach(beruf => {
+      const option = document.createElement("option");
+      option.value = beruf;
+      option.textContent = beruf;
+      filterEl.appendChild(option);
+    });
 
     function renderPlayers() {
       const suche = searchEl.value.trim().toLowerCase();
       const ausgewaehlterBeruf = filterEl.value;
-
       const treffer = spieler.filter(eintrag =>
         eintrag.name.toLowerCase().includes(suche) &&
         (!ausgewaehlterBeruf || eintrag.beruf === ausgewaehlterBeruf)
       );
 
       playersEl.replaceChildren();
-
       if (treffer.length === 0) {
         const meldung = document.createElement("p");
         meldung.className = "empty";
@@ -200,26 +232,21 @@
 
       treffer.forEach(eintrag => {
         const karte = document.createElement("article");
-        karte.className = "card";
-
+        karte.className = "player-card";
         const kopf = document.createElement("img");
         kopf.className = "skin-head";
         kopf.src = `https://mc-heads.net/avatar/${encodeURIComponent(eintrag.name)}/64`;
         kopf.alt = `Minecraft-Skin-Kopf von ${eintrag.name}`;
         kopf.width = 64;
         kopf.height = 64;
-
         const info = document.createElement("div");
         info.className = "player-info";
-
-        const name = document.createElement("h2");
+        const name = document.createElement("h3");
         name.textContent = eintrag.name;
-
-        const beruf = document.createElement("div");
-        beruf.className = "job";
-        beruf.textContent = `Beruf: ${eintrag.beruf}`;
-
-        info.append(name, beruf);
+        const job = document.createElement("div");
+        job.className = "player-job";
+        job.textContent = `Beruf: ${eintrag.beruf}`;
+        info.append(name, job);
         karte.append(kopf, info);
         playersEl.appendChild(karte);
       });
@@ -227,8 +254,8 @@
 
     searchEl.addEventListener("input", renderPlayers);
     filterEl.addEventListener("change", renderPlayers);
-
+    renderJobs();
     renderPlayers();
   </script>
 </body>
-  </html>
+</html>
