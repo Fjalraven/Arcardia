@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Das Königreich – Spieler & Berufe</title>
+  <style>
+    :root {
+      --parchment: #f3e7c9;
+      --ink: #302316;
+      --brown: #563a24;
+      --gold: #d3a64a;
+      --panel: rgba(255, 248, 229, .92);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        linear-gradient(rgba(35, 25, 16, .55), rgba(35, 25, 16, .72)),
+        radial-gradient(ellipse at top, #94764b, #34271c 70%);
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 52px 20px 34px;
+      color: var(--parchment);
+      border-bottom: 3px solid var(--gold);
+    }
+
+    header .crest { font-size: 42px; }
+    h1 { margin: 8px 0; font-size: clamp(2rem, 6vw, 3.5rem); }
+    header p { margin: 0; font-size: 1.15rem; }
+
+    main { max-width: 1050px; margin: 30px auto; padding: 0 18px; }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    input, select {
+      flex: 1 1 220px;
+      padding: 13px 15px;
+      border: 2px solid var(--gold);
+      border-radius: 8px;
+      background: var(--parchment);
+      color: var(--ink);
+      font: inherit;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 2px solid var(--gold);
+      border-radius: 10px;
+      padding: 19px;
+      box-shadow: 0 5px 15px #0005;
+    }
+
+    .card h2 { margin: 0 0 10px; font-size: 1.35rem; }
+    .job { color: #76501d; font-weight: bold; }
+    .empty { grid-column: 1 / -1; text-align: center; color: var(--parchment); }
+    footer { padding: 25px; text-align: center; color: var(--parchment); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="crest">⚔️</div>
+    <h1>Das Königreich</h1>
+    <p>Die Bewohner und ihre Berufe</p>
+  </header>
+
+  <main>
+    <div class="controls">
+      <input id="search" type="search" placeholder="Spieler suchen …" aria-label="Spieler suchen">
+      <select id="jobFilter" aria-label="Nach Beruf filtern">
+        <option value="">Alle Berufe</option>
+      </select>
+    </div>
+
+    <section id="players" class="grid" aria-live="polite"></section>
+  </main>
+
+  <footer>Willkommen in unserem mittelalterlichen Minecraft-Rollenspiel!</footer>
+
+  <script>
+    // Hier Spielernamen und Berufe eintragen oder ändern:
+    const spieler = [
+      { name: "Spielername 1", beruf: "Schmied" },
+      { name: "Spielername 2", beruf: "Marktschreier" },
+      { name: "Spielername 3", beruf: "Magier" },
+      { name: "Spielername 4", beruf: "Bäcker" },
+      { name: "Spielername 5", beruf: "Jäger" },
+      { name: "Spielername 6", beruf: "Bauer" },
+      { name: "Spielername 7", beruf: "Metzger" },
+      { name: "Spielername 8", beruf: "Fischer" },
+      { name: "Spielername 9", beruf: "Ramschladenbesitzer" }
+    ];
+
+    const playersEl = document.getElementById("players");
+    const searchEl = document.getElementById("search");
+    const filterEl = document.getElementById("jobFilter");
+
+    [...new Set(spieler.map(eintrag => eintrag.beruf))]
+      .sort()
+      .forEach(beruf => {
+        const option = document.createElement("option");
+        option.value = beruf;
+        option.textContent = beruf;
+        filterEl.appendChild(option);
+      });
+
+    function renderPlayers() {
+      const suche = searchEl.value.toLowerCase();
+      const beruf = filterEl.value;
+
+      const treffer = spieler.filter(eintrag =>
+        eintrag.name.toLowerCase().includes(suche) &&
+        (!beruf || eintrag.beruf === beruf)
+      );
+
+      playersEl.innerHTML = treffer.length
+        ? treffer.map(eintrag => `
+            <article class="card">
+              <h2>👤 ${eintrag.name}</h2>
+              <div class="job">Beruf: ${eintrag.beruf}</div>
+            </article>
+          `).join("")
+        : '<p class="empty">Keine Spieler gefunden.</p>';
+    }
+
+    searchEl.addEventListener("input", renderPlayers);
+    filterEl.addEventListener("change", renderPlayers);
+    renderPlayers();
+  </script>
+</body>
+  </html>
