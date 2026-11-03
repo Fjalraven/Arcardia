@@ -3,40 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Das Königreich – Spieler & Berufe</title>
+  <title>Arcadia – Spieler &amp; Berufe</title>
+
   <style>
     :root {
       --parchment: #f3e7c9;
       --ink: #302316;
-      --brown: #563a24;
       --gold: #d3a64a;
-      --panel: rgba(255, 248, 229, .92);
+      --panel: rgba(255, 248, 229, 0.92);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
+      min-height: 100vh;
       margin: 0;
       color: var(--ink);
       font-family: Georgia, "Times New Roman", serif;
       background:
-        linear-gradient(rgba(35, 25, 16, .55), rgba(35, 25, 16, .72)),
+        linear-gradient(rgba(35, 25, 16, 0.55), rgba(35, 25, 16, 0.72)),
         radial-gradient(ellipse at top, #94764b, #34271c 70%);
-      min-height: 100vh;
     }
 
     header {
-      text-align: center;
       padding: 52px 20px 34px;
       color: var(--parchment);
+      text-align: center;
       border-bottom: 3px solid var(--gold);
     }
 
-    header .crest { font-size: 42px; }
-    h1 { margin: 8px 0; font-size: clamp(2rem, 6vw, 3.5rem); }
-    header p { margin: 0; font-size: 1.15rem; }
+    .crest {
+      font-size: 42px;
+    }
 
-    main { max-width: 1050px; margin: 30px auto; padding: 0 18px; }
+    h1 {
+      margin: 8px 0;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+    }
+
+    header p {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 30px auto;
+      padding: 0 18px;
+    }
 
     .controls {
       display: flex;
@@ -45,7 +61,8 @@
       margin-bottom: 22px;
     }
 
-    input, select {
+    input,
+    select {
       flex: 1 1 220px;
       padding: 13px 15px;
       border: 2px solid var(--gold);
@@ -62,29 +79,67 @@
     }
 
     .card {
-      background: var(--panel);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
       border: 2px solid var(--gold);
       border-radius: 10px;
-      padding: 19px;
+      background: var(--panel);
       box-shadow: 0 5px 15px #0005;
     }
 
-    .card h2 { margin: 0 0 10px; font-size: 1.35rem; }
-    .job { color: #76501d; font-weight: bold; }
-    .empty { grid-column: 1 / -1; text-align: center; color: var(--parchment); }
-    footer { padding: 25px; text-align: center; color: var(--parchment); }
+    .skin-head {
+      width: 64px;
+      height: 64px;
+      flex: 0 0 64px;
+      border: 2px solid var(--gold);
+      border-radius: 6px;
+      background: #e4d3ae;
+      image-rendering: pixelated;
+    }
+
+    .player-info h2 {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+      overflow-wrap: anywhere;
+    }
+
+    .job {
+      color: #76501d;
+      font-weight: bold;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      color: var(--parchment);
+      text-align: center;
+    }
+
+    footer {
+      padding: 25px;
+      color: var(--parchment);
+      text-align: center;
+    }
   </style>
 </head>
+
 <body>
   <header>
-    <div class="crest">⚔️</div>
-    <h1>Das Königreich</h1>
+    <div class="crest" aria-hidden="true">⚔️</div>
+    <h1>Arcadia</h1>
     <p>Die Bewohner und ihre Berufe</p>
   </header>
 
   <main>
     <div class="controls">
-      <input id="search" type="search" placeholder="Spieler suchen …" aria-label="Spieler suchen">
+      <input
+        id="search"
+        type="search"
+        placeholder="Spieler suchen …"
+        aria-label="Spieler suchen"
+      >
+
       <select id="jobFilter" aria-label="Nach Beruf filtern">
         <option value="">Alle Berufe</option>
       </select>
@@ -93,14 +148,16 @@
     <section id="players" class="grid" aria-live="polite"></section>
   </main>
 
-  <footer>Willkommen in unserem mittelalterlichen Minecraft-Rollenspiel!</footer>
+  <footer>
+    Willkommen in Arcadia – unserem mittelalterlichen Minecraft-Rollenspiel!
+  </footer>
 
   <script>
-    // Hier Spielernamen und Berufe eintragen oder ändern:
+    // Ersetze die Platzhalternamen durch eure Minecraft-Spielernamen.
     const spieler = [
-      { name: "Spielername 1", beruf: "Schmied" },
-      { name: "Spielername 2", beruf: "Marktschreier" },
-      { name: "Spielername 3", beruf: "Magier" },
+      { name: "Fjalraven", beruf: "Magier" },
+      { name: "Spielername 2", beruf: "Schmied" },
+      { name: "Spielername 3", beruf: "Marktschreier" },
       { name: "Spielername 4", beruf: "Bäcker" },
       { name: "Spielername 5", beruf: "Jäger" },
       { name: "Spielername 6", beruf: "Bauer" },
@@ -123,26 +180,54 @@
       });
 
     function renderPlayers() {
-      const suche = searchEl.value.toLowerCase();
-      const beruf = filterEl.value;
+      const suche = searchEl.value.trim().toLowerCase();
+      const ausgewaehlterBeruf = filterEl.value;
 
       const treffer = spieler.filter(eintrag =>
         eintrag.name.toLowerCase().includes(suche) &&
-        (!beruf || eintrag.beruf === beruf)
+        (!ausgewaehlterBeruf || eintrag.beruf === ausgewaehlterBeruf)
       );
 
-      playersEl.innerHTML = treffer.length
-        ? treffer.map(eintrag => `
-            <article class="card">
-              <h2>👤 ${eintrag.name}</h2>
-              <div class="job">Beruf: ${eintrag.beruf}</div>
-            </article>
-          `).join("")
-        : '<p class="empty">Keine Spieler gefunden.</p>';
+      playersEl.replaceChildren();
+
+      if (treffer.length === 0) {
+        const meldung = document.createElement("p");
+        meldung.className = "empty";
+        meldung.textContent = "Keine Spieler gefunden.";
+        playersEl.appendChild(meldung);
+        return;
+      }
+
+      treffer.forEach(eintrag => {
+        const karte = document.createElement("article");
+        karte.className = "card";
+
+        const kopf = document.createElement("img");
+        kopf.className = "skin-head";
+        kopf.src = `https://mc-heads.net/avatar/${encodeURIComponent(eintrag.name)}/64`;
+        kopf.alt = `Minecraft-Skin-Kopf von ${eintrag.name}`;
+        kopf.width = 64;
+        kopf.height = 64;
+
+        const info = document.createElement("div");
+        info.className = "player-info";
+
+        const name = document.createElement("h2");
+        name.textContent = eintrag.name;
+
+        const beruf = document.createElement("div");
+        beruf.className = "job";
+        beruf.textContent = `Beruf: ${eintrag.beruf}`;
+
+        info.append(name, beruf);
+        karte.append(kopf, info);
+        playersEl.appendChild(karte);
+      });
     }
 
     searchEl.addEventListener("input", renderPlayers);
     filterEl.addEventListener("change", renderPlayers);
+
     renderPlayers();
   </script>
 </body>
