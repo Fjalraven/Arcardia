@@ -34,7 +34,13 @@
       border-bottom: 3px solid var(--gold);
     }
 
-    .crest { font-size: 38px; }
+    .crest {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 12px;
+      display: block;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.35));
+    }
     h1 { margin: 6px 0; font-size: clamp(2rem, 6vw, 3.2rem); }
     header p { margin: 0; font-size: 1.1rem; }
 
@@ -154,7 +160,37 @@
 </head>
 <body>
   <header>
-    <div class="crest" aria-hidden="true">⚔️</div>
+    <svg class="crest" viewBox="0 0 120 120" role="img" aria-label="Arcadia Logo">
+      <defs>
+        <linearGradient id="shieldGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+          <stop offset="0%" stop-color="#f9e9ba" />
+          <stop offset="50%" stop-color="#d8b25f" />
+          <stop offset="100%" stop-color="#a97a2d" />
+        </linearGradient>
+        <linearGradient id="innerGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+          <stop offset="0%" stop-color="#f8f2d9" />
+          <stop offset="100%" stop-color="#d8c39e" />
+        </linearGradient>
+      </defs>
+
+      <path d="M60 8 L98 18 L98 56 C98 82 82 100 60 110 C38 100 22 82 22 56 L22 18 Z"
+            fill="url(#shieldGrad)" stroke="#3b2617" stroke-width="3"/>
+      <path d="M60 18 L88 25 L88 55 C88 72 76 86 60 94 C44 86 32 72 32 55 L32 25 Z"
+            fill="url(#innerGrad)" stroke="#3b2617" stroke-width="2"/>
+
+      <path d="M39 45 L60 26 L81 45 L75 47 L68 40 L60 45 L52 40 L45 47 Z" fill="#745326" opacity="0.8"/>
+      <path d="M46 55 L60 44 L74 55 L71 76 L60 85 L49 76 Z" fill="#8f6f30"/>
+      <path d="M60 49 L64 62 L60 73 L56 62 Z" fill="#f0dc9e"/>
+      <path d="M52 60 L60 57 L68 60 L69 68 L60 74 L51 68 Z" fill="#e1bf6b"/>
+
+      <path d="M27 42 L35 39 L39 45 L33 49 Z" fill="#2b2018" opacity="0.8"/>
+      <path d="M93 42 L85 39 L81 45 L87 49 Z" fill="#2b2018" opacity="0.8"/>
+
+      <path d="M41 32 L60 19 L79 32" fill="none" stroke="#3b2617" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="60" cy="41" r="5" fill="#3b2617"/>
+      <path d="M60 47 L60 84" stroke="#3b2617" stroke-width="3" stroke-linecap="round"/>
+      <path d="M46 62 L60 54 L74 62" fill="none" stroke="#3b2617" stroke-width="3" stroke-linecap="round"/>
+    </svg>
     <h1>Arcadia</h1>
     <p>Die Bewohner, ihre Berufe und freie Plätze</p>
   </header>
