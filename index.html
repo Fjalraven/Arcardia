@@ -28,17 +28,48 @@
     }
 
     header {
-      padding: 52px 20px 34px;
+      padding: 38px 20px 26px;
       color: var(--parchment);
       text-align: center;
       border-bottom: 3px solid var(--gold);
     }
 
-    .crest { font-size: 42px; }
-    h1 { margin: 8px 0; font-size: clamp(2rem, 6vw, 3.5rem); }
-    header p { margin: 0; font-size: 1.15rem; }
+    .crest { font-size: 38px; }
+    h1 { margin: 6px 0; font-size: clamp(2rem, 6vw, 3.2rem); }
+    header p { margin: 0; font-size: 1.1rem; }
 
-    main { max-width: 1050px; margin: 30px auto; padding: 0 18px; }
+    main { max-width: 1050px; margin: 22px auto; padding: 0 18px; }
+
+    .tab-list {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--gold);
+    }
+
+    .tab-button {
+      padding: 12px 20px;
+      border: 2px solid var(--gold);
+      border-bottom: 0;
+      border-radius: 9px 9px 0 0;
+      background: rgba(255, 248, 229, 0.72);
+      color: var(--parchment);
+      font: bold 1rem Georgia, "Times New Roman", serif;
+      cursor: pointer;
+    }
+
+    .tab-button[aria-selected="true"] {
+      background: var(--parchment);
+      color: var(--ink);
+    }
+
+    .tab-button:focus-visible {
+      outline: 3px solid white;
+      outline-offset: 3px;
+    }
+
+    [role="tabpanel"]:focus { outline: none; }
 
     .section-title {
       margin: 0 0 16px;
@@ -70,14 +101,8 @@
       border-radius: 99px;
       background: #d7c8a9;
     }
-    .job-bar-fill {
-      height: 100%;
-      border-radius: inherit;
-      background: var(--green);
-    }
+    .job-bar-fill { height: 100%; border-radius: inherit; background: var(--green); }
     .job-bar-fill.full { background: var(--red); }
-
-    .players-section { margin-top: 36px; }
 
     .controls {
       display: flex;
@@ -120,8 +145,11 @@
     .player-info h3 { margin: 0 0 8px; font-size: 1.2rem; overflow-wrap: anywhere; }
     .player-job { color: #76501d; font-weight: bold; }
     .empty { grid-column: 1 / -1; color: var(--parchment); text-align: center; }
+    footer { padding: 20px; color: var(--parchment); text-align: center; }
 
-    footer { padding: 25px; color: var(--parchment); text-align: center; }
+    @media (max-width: 480px) {
+      .tab-button { flex: 1; padding: 11px 8px; }
+    }
   </style>
 </head>
 <body>
@@ -132,13 +160,15 @@
   </header>
 
   <main>
-    <section aria-labelledby="jobsTitle">
-      <h2 class="section-title" id="jobsTitle">Freie Plätze nach Beruf</h2>
-      <div id="jobs" class="jobs-grid" aria-live="polite"></div>
-    </section>
+    <div class="tab-list" role="tablist" aria-label="Arcadia Bereiche">
+      <button class="tab-button" id="playersTab" type="button" role="tab"
+        aria-selected="true" aria-controls="playersPanel" tabindex="0">Spieler</button>
+      <button class="tab-button" id="jobsTab" type="button" role="tab"
+        aria-selected="false" aria-controls="jobsPanel" tabindex="-1">Berufe &amp; freie Plätze</button>
+    </div>
 
-    <section class="players-section" aria-labelledby="playersTitle">
-      <h2 class="section-title" id="playersTitle">Spielerinnen und Spieler</h2>
+    <section id="playersPanel" role="tabpanel" aria-labelledby="playersTab" tabindex="0">
+      <h2 class="section-title">Spielerinnen und Spieler</h2>
       <div class="controls">
         <input id="search" type="search" placeholder="Spieler suchen …" aria-label="Spieler suchen">
         <select id="jobFilter" aria-label="Nach Beruf filtern">
@@ -146,6 +176,11 @@
         </select>
       </div>
       <div id="players" class="players-grid" aria-live="polite"></div>
+    </section>
+
+    <section id="jobsPanel" role="tabpanel" aria-labelledby="jobsTab" tabindex="0" hidden>
+      <h2 class="section-title">Freie Plätze nach Beruf</h2>
+      <div id="jobs" class="jobs-grid" aria-live="polite"></div>
     </section>
   </main>
 
@@ -174,11 +209,37 @@
     const playersEl = document.getElementById("players");
     const searchEl = document.getElementById("search");
     const filterEl = document.getElementById("jobFilter");
+    const tabs = [
+      { button: document.getElementById("playersTab"), panel: document.getElementById("playersPanel") },
+      { button: document.getElementById("jobsTab"), panel: document.getElementById("jobsPanel") }
+    ];
+
+    function selectTab(selectedTab, moveFocus = false) {
+      tabs.forEach(tab => {
+        const selected = tab === selectedTab;
+        tab.button.setAttribute("aria-selected", String(selected));
+        tab.button.tabIndex = selected ? 0 : -1;
+        tab.panel.hidden = !selected;
+      });
+      if (moveFocus) selectedTab.button.focus();
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.button.addEventListener("click", () => selectTab(tab));
+      tab.button.addEventListener("keydown", event => {
+        if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+          event.preventDefault();
+          const direction = event.key === "ArrowRight" ? 1 : -1;
+          const nextTab = tabs[(index + direction + tabs.length) % tabs.length];
+          selectTab(nextTab, true);
+        }
+      });
+    });
 
     function renderJobs() {
       jobsEl.replaceChildren();
       berufe.forEach(beruf => {
-        const belegt = spieler.filter(spielerEintrag => spielerEintrag.beruf === beruf).length;
+        const belegt = spieler.filter(eintrag => eintrag.beruf === beruf).length;
         const frei = Math.max(0, MAX_PRO_BERUF - belegt);
         const karte = document.createElement("article");
         karte.className = "job-card";
