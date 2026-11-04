@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Arcadia – Spieler &amp; Berufe</title>
-
   <style>
     :root {
       --parchment: #f3e7c9;
@@ -14,148 +13,52 @@
       --green: #496b35;
       --red: #8d3429;
     }
-
     * { box-sizing: border-box; }
-
     body {
       min-height: 100vh;
       margin: 0;
       color: var(--ink);
       font-family: Georgia, "Times New Roman", serif;
-      background:
-        linear-gradient(rgba(35, 25, 16, 0.55), rgba(35, 25, 16, 0.72)),
+      background: linear-gradient(rgba(35, 25, 16, 0.55), rgba(35, 25, 16, 0.72)),
         radial-gradient(ellipse at top, #94764b, #34271c 70%);
     }
-
     header {
       padding: 38px 20px 26px;
       color: var(--parchment);
       text-align: center;
       border-bottom: 3px solid var(--gold);
     }
-
-    .crest {
-      width: 110px;
-      height: 110px;
-      margin: 0 auto 12px;
-      display: block;
-      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.35));
-    }
+    .crest { width: 110px; height: 110px; margin: 0 auto 12px; display: block; filter: drop-shadow(0 6px 10px rgba(0,0,0,.35)); }
     h1 { margin: 6px 0; font-size: clamp(2rem, 6vw, 3.2rem); }
     header p { margin: 0; font-size: 1.1rem; }
-
     main { max-width: 1050px; margin: 22px auto; padding: 0 18px; }
-
-    .tab-list {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid var(--gold);
-    }
-
+    .tab-list { display: flex; gap: 8px; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid var(--gold); }
     .tab-button {
-      padding: 12px 20px;
-      border: 2px solid var(--gold);
-      border-bottom: 0;
-      border-radius: 9px 9px 0 0;
-      background: rgba(255, 248, 229, 0.72);
-      color: var(--parchment);
-      font: bold 1rem Georgia, "Times New Roman", serif;
-      cursor: pointer;
+      padding: 12px 20px; border: 2px solid var(--gold); border-bottom: 0;
+      border-radius: 9px 9px 0 0; background: rgba(255,248,229,.72); color: var(--parchment);
+      font: bold 1rem Georgia, "Times New Roman", serif; cursor: pointer;
     }
-
-    .tab-button[aria-selected="true"] {
-      background: var(--parchment);
-      color: var(--ink);
-    }
-
-    .tab-button:focus-visible {
-      outline: 3px solid white;
-      outline-offset: 3px;
-    }
-
+    .tab-button[aria-selected="true"] { background: var(--parchment); color: var(--ink); }
+    .tab-button:focus-visible { outline: 3px solid white; outline-offset: 3px; }
     [role="tabpanel"]:focus { outline: none; }
-
-    .section-title {
-      margin: 0 0 16px;
-      color: var(--parchment);
-      font-size: 1.7rem;
-    }
-
-    .jobs-grid, .players-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-    }
-
-    .job-card {
-      padding: 17px;
-      border: 2px solid var(--gold);
-      border-radius: 10px;
-      background: var(--panel);
-      box-shadow: 0 5px 15px #0005;
-    }
-
+    .section-title { margin: 0 0 16px; color: var(--parchment); font-size: 1.7rem; }
+    .jobs-grid, .players-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .job-card { padding: 17px; border: 2px solid var(--gold); border-radius: 10px; background: var(--panel); box-shadow: 0 5px 15px #0005; }
     .job-card h3 { margin: 0 0 8px; font-size: 1.2rem; }
     .job-count { margin: 0; color: var(--green); font-weight: bold; }
     .job-count.full { color: var(--red); }
-    .job-bar {
-      height: 10px;
-      margin-top: 12px;
-      overflow: hidden;
-      border-radius: 99px;
-      background: #d7c8a9;
-    }
+    .job-bar { height: 10px; margin-top: 12px; overflow: hidden; border-radius: 99px; background: #d7c8a9; }
     .job-bar-fill { height: 100%; border-radius: inherit; background: var(--green); }
     .job-bar-fill.full { background: var(--red); }
-
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 22px;
-    }
-
-    input, select {
-      flex: 1 1 220px;
-      padding: 13px 15px;
-      border: 2px solid var(--gold);
-      border-radius: 8px;
-      background: var(--parchment);
-      color: var(--ink);
-      font: inherit;
-    }
-
-    .player-card {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px;
-      border: 2px solid var(--gold);
-      border-radius: 10px;
-      background: var(--panel);
-      box-shadow: 0 5px 15px #0005;
-    }
-
-    .skin-head {
-      width: 64px;
-      height: 64px;
-      flex: 0 0 64px;
-      border: 2px solid var(--gold);
-      border-radius: 6px;
-      background: #e4d3ae;
-      image-rendering: pixelated;
-    }
-
+    .controls { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 22px; }
+    input, select { flex: 1 1 220px; padding: 13px 15px; border: 2px solid var(--gold); border-radius: 8px; background: var(--parchment); color: var(--ink); font: inherit; }
+    .player-card { display: flex; align-items: center; gap: 14px; padding: 14px; border: 2px solid var(--gold); border-radius: 10px; background: var(--panel); box-shadow: 0 5px 15px #0005; }
+    .skin-head { width: 64px; height: 64px; flex: 0 0 64px; border: 2px solid var(--gold); border-radius: 6px; background: #e4d3ae; image-rendering: pixelated; }
     .player-info h3 { margin: 0 0 8px; font-size: 1.2rem; overflow-wrap: anywhere; }
     .player-job { color: #76501d; font-weight: bold; }
     .empty { grid-column: 1 / -1; color: var(--parchment); text-align: center; }
     footer { padding: 20px; color: var(--parchment); text-align: center; }
-
-    @media (max-width: 480px) {
-      .tab-button { flex: 1; padding: 11px 8px; }
-    }
+    @media (max-width: 480px) { .tab-button { flex: 1; padding: 11px 8px; } }
   </style>
 </head>
 <body>
@@ -163,67 +66,48 @@
     <svg class="crest" viewBox="0 0 120 120" role="img" aria-label="Arcadia Logo">
       <defs>
         <linearGradient id="shieldGrad" x1="0%" x2="100%" y1="0%" y2="100%">
-          <stop offset="0%" stop-color="#f9e9ba" />
-          <stop offset="50%" stop-color="#d8b25f" />
-          <stop offset="100%" stop-color="#a97a2d" />
+          <stop offset="0%" stop-color="#f9e9ba"/><stop offset="50%" stop-color="#d8b25f"/><stop offset="100%" stop-color="#a97a2d"/>
         </linearGradient>
         <linearGradient id="innerGrad" x1="0%" x2="100%" y1="0%" y2="100%">
-          <stop offset="0%" stop-color="#f8f2d9" />
-          <stop offset="100%" stop-color="#d8c39e" />
+          <stop offset="0%" stop-color="#f8f2d9"/><stop offset="100%" stop-color="#d8c39e"/>
         </linearGradient>
       </defs>
-
-      <path d="M60 8 L98 18 L98 56 C98 82 82 100 60 110 C38 100 22 82 22 56 L22 18 Z"
-            fill="url(#shieldGrad)" stroke="#3b2617" stroke-width="3"/>
-      <path d="M60 18 L88 25 L88 55 C88 72 76 86 60 94 C44 86 32 72 32 55 L32 25 Z"
-            fill="url(#innerGrad)" stroke="#3b2617" stroke-width="2"/>
-
-      <path d="M39 45 L60 26 L81 45 L75 47 L68 40 L60 45 L52 40 L45 47 Z" fill="#745326" opacity="0.8"/>
+      <path d="M60 8 L98 18 L98 56 C98 82 82 100 60 110 C38 100 22 82 22 56 L22 18 Z" fill="url(#shieldGrad)" stroke="#3b2617" stroke-width="3"/>
+      <path d="M60 18 L88 25 L88 55 C88 72 76 86 60 94 C44 86 32 72 32 55 L32 25 Z" fill="url(#innerGrad)" stroke="#3b2617" stroke-width="2"/>
+      <path d="M39 45 L60 26 L81 45 L75 47 L68 40 L60 45 L52 40 L45 47 Z" fill="#745326" opacity=".8"/>
       <path d="M46 55 L60 44 L74 55 L71 76 L60 85 L49 76 Z" fill="#8f6f30"/>
       <path d="M60 49 L64 62 L60 73 L56 62 Z" fill="#f0dc9e"/>
       <path d="M52 60 L60 57 L68 60 L69 68 L60 74 L51 68 Z" fill="#e1bf6b"/>
-
-      <path d="M27 42 L35 39 L39 45 L33 49 Z" fill="#2b2018" opacity="0.8"/>
-      <path d="M93 42 L85 39 L81 45 L87 49 Z" fill="#2b2018" opacity="0.8"/>
-
+      <path d="M27 42 L35 39 L39 45 L33 49 Z M93 42 L85 39 L81 45 L87 49 Z" fill="#2b2018" opacity=".8"/>
       <path d="M41 32 L60 19 L79 32" fill="none" stroke="#3b2617" stroke-width="3" stroke-linecap="round"/>
       <circle cx="60" cy="41" r="5" fill="#3b2617"/>
-      <path d="M60 47 L60 84" stroke="#3b2617" stroke-width="3" stroke-linecap="round"/>
-      <path d="M46 62 L60 54 L74 62" fill="none" stroke="#3b2617" stroke-width="3" stroke-linecap="round"/>
+      <path d="M60 47 L60 84 M46 62 L60 54 L74 62" fill="none" stroke="#3b2617" stroke-width="3" stroke-linecap="round"/>
     </svg>
     <h1>Arcadia</h1>
     <p>Die Bewohner, ihre Berufe und freie Plätze</p>
   </header>
-
   <main>
     <div class="tab-list" role="tablist" aria-label="Arcadia Bereiche">
-      <button class="tab-button" id="playersTab" type="button" role="tab"
-        aria-selected="true" aria-controls="playersPanel" tabindex="0">Spieler</button>
-      <button class="tab-button" id="jobsTab" type="button" role="tab"
-        aria-selected="false" aria-controls="jobsPanel" tabindex="-1">Berufe &amp; freie Plätze</button>
+      <button class="tab-button" id="playersTab" type="button" role="tab" aria-selected="true" aria-controls="playersPanel" tabindex="0">Spieler</button>
+      <button class="tab-button" id="jobsTab" type="button" role="tab" aria-selected="false" aria-controls="jobsPanel" tabindex="-1">Berufe &amp; freie Plätze</button>
     </div>
-
     <section id="playersPanel" role="tabpanel" aria-labelledby="playersTab" tabindex="0">
       <h2 class="section-title">Spielerinnen und Spieler</h2>
       <div class="controls">
         <input id="search" type="search" placeholder="Spieler suchen …" aria-label="Spieler suchen">
-        <select id="jobFilter" aria-label="Nach Beruf filtern">
-          <option value="">Alle Berufe</option>
-        </select>
+        <select id="jobFilter" aria-label="Nach Beruf filtern"><option value="">Alle Berufe</option></select>
       </div>
       <div id="players" class="players-grid" aria-live="polite"></div>
     </section>
-
     <section id="jobsPanel" role="tabpanel" aria-labelledby="jobsTab" tabindex="0" hidden>
       <h2 class="section-title">Freie Plätze nach Beruf</h2>
       <div id="jobs" class="jobs-grid" aria-live="polite"></div>
     </section>
   </main>
-
   <footer>Willkommen in Arcadia – unserem mittelalterlichen Minecraft-Rollenspiel!</footer>
 
   <script>
-    const MAX_PRO_BERUF = 10;
+    const DEFAULT_MAX_PRO_BERUF = 100;
     const MAX_PRO_BERUF_NACH_BERUF = {
       Schmied: 5,
       Marktschreier: 5,
@@ -236,20 +120,59 @@
       Ramschladenbesitzer: 6
     };
     const berufe = [
-      "Schmied",
-      "Marktschreier",
-      "Magier",
-      "Bäcker",
-      "Jäger",
-      "Bauer",
-      "Metzger",
-      "Fischer",
-      "Ramschladenbesitzer"
+      "Schmied", "Marktschreier", "Magier", "Bäcker", "Jäger", "Bauer", "Metzger", "Fischer", "Ramschladenbesitzer",
+      "Erbauer", "König", "Königsgarde", "Wirt", "Soldat", "Torwächter", "Minenarbeiter", "Mönch", "Holzfäller", "Ritter"
     ];
 
-    // Hier echte Spielernamen eintragen. Platzhalter zählen nicht als Spieler.
+    // Mehrere Berufe pro Person sind möglich. Namen und Berufe aus der bereitgestellten Liste.
     const spieler = [
-      { name: "Fjalraven", beruf: "Magier" }
+      { name: "Noah", berufe: ["Erbauer"] },
+      { name: "Adam", berufe: ["Erbauer"] },
+      { name: "PaperStraw58602", berufe: ["König"] },
+      { name: "Mojel11YT", berufe: ["Königsgarde"] },
+      { name: "Benzjamin", berufe: ["Wirt"] },
+      { name: "PHOENIX XD", berufe: ["Soldat"] },
+      { name: "x_simmi", berufe: ["Fischer"] },
+      { name: "PriicyRex4038", berufe: ["Torwächter"] },
+      { name: "Mapaa5", berufe: ["Fischer"] },
+      { name: "AetherXgames", berufe: ["Minenarbeiter"] },
+      { name: "LettLukas", berufe: ["Bäcker"] },
+      { name: "Jakobber2000", berufe: ["Soldat"] },
+      { name: "xr643", berufe: ["Bauer"] },
+      { name: "Caraoelin", berufe: ["Bauer"] },
+      { name: "Quirity15", berufe: ["Soldat"] },
+      { name: "Delfine4904", berufe: ["Bauer"] },
+      { name: "Maax67", berufe: ["Mönch"] },
+      { name: "Craft4Life12", berufe: ["Soldat"] },
+      { name: "zackdiebohne", berufe: ["Schmied"] },
+      { name: "Zero", berufe: ["Soldat"] },
+      { name: "DiamondDragon", berufe: ["Soldat"] },
+      { name: "Sharkalarm", berufe: ["Holzfäller"] },
+      { name: "Babbles1042", berufe: ["Bauer"] },
+      { name: "RichiHD", berufe: ["Bauer"] },
+      { name: "Nao878", berufe: ["Soldat"] },
+      { name: "Bluecroni12", berufe: ["Bauer"] },
+      { name: "FantasticoVici", berufe: ["Holzfäller"] },
+      { name: "Zupiruchi", berufe: ["Mönch"] },
+      { name: "CaptainBintang", berufe: ["Holzfäller"] },
+      { name: "TheFiredoom", berufe: ["Minenarbeiter"] },
+      { name: "Akakarius", berufe: ["Ritter"] },
+      { name: "Diefire", berufe: ["Ritter"] },
+      { name: "Eigella", berufe: ["Minenarbeiter"] },
+      { name: "N04H_MINECR4FT", berufe: ["Fischer"] },
+      { name: "Phoenix90312", berufe: ["Soldat"] },
+      { name: "Kenanzockt5814", berufe: ["Fischer"] },
+      { name: "LeadedSnow51573", berufe: ["Ritter"] },
+      { name: "GamedFio2024", berufe: ["Fischer"] },
+      { name: "Gedankebar6029", berufe: ["Fischer"] },
+      { name: "truewither", berufe: ["Soldat"] },
+      { name: "ScarletJP", berufe: ["Soldat"] },
+      { name: "Timmn1893", berufe: ["Minenarbeiter", "Soldat"] },
+      { name: "SnowingSun3017", berufe: ["Bauer"] },
+      { name: "Zwergnase2111", berufe: ["Soldat"] },
+      { name: "Emilcrafty03", berufe: ["Mönch"] },
+      { name: "Spilraleel", berufe: ["Bäcker"] },
+      { name: "Fjalraven", berufe: ["Magier"] }
     ];
 
     const jobsEl = document.getElementById("jobs");
@@ -270,15 +193,13 @@
       });
       if (moveFocus) selectedTab.button.focus();
     }
-
     tabs.forEach((tab, index) => {
       tab.button.addEventListener("click", () => selectTab(tab));
       tab.button.addEventListener("keydown", event => {
         if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
           event.preventDefault();
           const direction = event.key === "ArrowRight" ? 1 : -1;
-          const nextTab = tabs[(index + direction + tabs.length) % tabs.length];
-          selectTab(nextTab, true);
+          selectTab(tabs[(index + direction + tabs.length) % tabs.length], true);
         }
       });
     });
@@ -286,12 +207,11 @@
     function renderJobs() {
       jobsEl.replaceChildren();
       berufe.forEach(beruf => {
-        const maxPlaetze = MAX_PRO_BERUF_NACH_BERUF[beruf] ?? MAX_PRO_BERUF;
-        const belegt = spieler.filter(eintrag => eintrag.beruf === beruf).length;
+        const maxPlaetze = MAX_PRO_BERUF_NACH_BERUF[beruf] ?? DEFAULT_MAX_PRO_BERUF;
+        const belegt = spieler.filter(eintrag => eintrag.berufe.includes(beruf)).length;
         const frei = Math.max(0, maxPlaetze - belegt);
         const karte = document.createElement("article");
         karte.className = "job-card";
-
         const titel = document.createElement("h3");
         titel.textContent = beruf;
         const anzahl = document.createElement("p");
@@ -327,9 +247,8 @@
       const ausgewaehlterBeruf = filterEl.value;
       const treffer = spieler.filter(eintrag =>
         eintrag.name.toLowerCase().includes(suche) &&
-        (!ausgewaehlterBeruf || eintrag.beruf === ausgewaehlterBeruf)
+        (!ausgewaehlterBeruf || eintrag.berufe.includes(ausgewaehlterBeruf))
       );
-
       playersEl.replaceChildren();
       if (treffer.length === 0) {
         const meldung = document.createElement("p");
@@ -338,7 +257,6 @@
         playersEl.appendChild(meldung);
         return;
       }
-
       treffer.forEach(eintrag => {
         const karte = document.createElement("article");
         karte.className = "player-card";
@@ -348,13 +266,14 @@
         kopf.alt = `Minecraft-Skin-Kopf von ${eintrag.name}`;
         kopf.width = 64;
         kopf.height = 64;
+        kopf.onerror = () => { kopf.style.visibility = "hidden"; };
         const info = document.createElement("div");
         info.className = "player-info";
         const name = document.createElement("h3");
         name.textContent = eintrag.name;
         const job = document.createElement("div");
         job.className = "player-job";
-        job.textContent = `Beruf: ${eintrag.beruf}`;
+        job.textContent = `Berufe: ${eintrag.berufe.join(", ")}`;
         info.append(name, job);
         karte.append(kopf, info);
         playersEl.appendChild(karte);
