@@ -167,7 +167,6 @@
     <div class="design-picker">
       <label for="designSelect">Design</label>
       <select id="designSelect" aria-label="Design auswählen">
-        <option value="standard">Standard</option>
         <option value="winter">Winter</option>
         <option value="autumn">Herbst</option>
         <option value="spring">Frühling</option>
@@ -315,13 +314,12 @@
     ];
 
     function setDesign(theme) {
-      const validThemes = ["standard", "winter", "autumn", "spring", "summer"];
-      const selectedTheme = validThemes.includes(theme) ? theme : "standard";
+      const validThemes = ["winter", "autumn", "spring", "summer"];
+      const selectedTheme = validThemes.includes(theme) ? theme : "winter";
       document.body.dataset.theme = selectedTheme;
       designSelect.value = selectedTheme;
       try { localStorage.setItem("arcadia-design", selectedTheme); } catch {}
       weatherEl.replaceChildren();
-      if (selectedTheme === "standard") return;
       const particleSets = {
         winter: { symbols: ["❄", "❅", "❆"], count: 55 },
         autumn: { symbols: ["🍂", "🍁"], count: 28 },
@@ -347,8 +345,8 @@
     }
 
     designSelect.addEventListener("change", () => setDesign(designSelect.value));
-    let savedDesign = "standard";
-    try { savedDesign = localStorage.getItem("arcadia-design") || "standard"; } catch {}
+    let savedDesign = "winter";
+    try { savedDesign = localStorage.getItem("arcadia-design") || "winter"; } catch {}
     setDesign(savedDesign);
 
     function selectTab(selectedTab, moveFocus = false) {
