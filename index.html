@@ -33,7 +33,8 @@
   <script>
     const DEFAULT_MAX_PRO_BERUF=100;
     const MAX_PRO_BERUF_NACH_BERUF={Schmied:5,Marktschreier:5,Magier:5,Bäcker:5,Jäger:5,Bauer:100,Metzger:5,Fischer:100,Ramschladenbesitzer:6,König:1,Königsgarde:3,Wirt:5,Soldat:200,Torwächter:20,Minenarbeiter:20,Ritter:10,Holzfäller:20};
-    // Freie Plätze werden manuell gepflegt; alle nicht aufgeführten Berufe gelten als voll.
+    // Manuell gepflegte freie Plätze berücksichtigen auch Spieler, die nicht in der Spielerliste stehen.
+    // Für nicht manuell gepflegte Berufe wird die Besetzung aus den eingetragenen Spielern gezählt.
     const FREIE_PLAETZE_NACH_BERUF={Soldat:128,Minenarbeiter:18,Bauer:23,Fischer:38};
     const berufe=["Schmied","Marktschreier","Magier","Bäcker","Jäger","Bauer","Metzger","Fischer","Ramschladenbesitzer","König","Königsgarde","Wirt","Soldat","Torwächter","Minenarbeiter","Mönch","Holzfäller","Ritter"];
     const spieler=[
@@ -50,14 +51,16 @@
       berufe.forEach((beruf,index)=>{
         const maxPlaetze=MAX_PRO_BERUF_NACH_BERUF[beruf]??DEFAULT_MAX_PRO_BERUF;
         const jobSpieler=spieler.filter(eintrag=>eintrag.berufe.includes(beruf));
-        const belegt=jobSpieler.length,frei=Math.max(0,maxPlaetze-belegt);
+        const manuellFreiePlaetze=FREIE_PLAETZE_NACH_BERUF[beruf];
+        const frei=manuellFreiePlaetze===undefined?Math.max(0,maxPlaetze-jobSpieler.length):Math.min(manuellFreiePlaetze,maxPlaetze);
+        const belegt=maxPlaetze-frei;
         const karte=document.createElement("article");karte.className="job-card";
         const titel=document.createElement("h3"),knopf=document.createElement("button");knopf.type="button";knopf.className="job-title-button";knopf.textContent=beruf;knopf.setAttribute("aria-expanded","false");knopf.setAttribute("aria-controls",`job-members-${index}`);titel.appendChild(knopf);
         const anzahl=document.createElement("p");anzahl.className=`job-count${frei===0?" full":""}`;anzahl.textContent=frei===0?`Ausgebucht (${belegt}/${maxPlaetze})`:`${frei} von ${maxPlaetze} Plätzen frei (${belegt} belegt)`;
         const balken=document.createElement("div");balken.className="job-bar";balken.setAttribute("role","progressbar");balken.setAttribute("aria-label",`Belegte Plätze für ${beruf}`);balken.setAttribute("aria-valuemin","0");balken.setAttribute("aria-valuemax",String(maxPlaetze));balken.setAttribute("aria-valuenow",String(Math.min(belegt,maxPlaetze)));
         const fuellung=document.createElement("div");fuellung.className=`job-bar-fill${frei===0?" full":""}`;fuellung.style.width=`${Math.min(belegt/maxPlaetze,1)*100}%`;balken.appendChild(fuellung);
         const liste=document.createElement("ul");liste.className="job-members";liste.id=`job-members-${index}`;liste.hidden=true;liste.setAttribute("aria-label",`Spieler mit dem Beruf ${beruf}`);
-        if(jobSpieler.length){jobSpieler.forEach(spielerEintrag=>{const li=document.createElement("li");li.textContent=spielerEintrag.name;liste.appendChild(li)})}else{const li=document.createElement("li");li.textContent="Noch keine Spieler mit diesem Beruf.";liste.appendChild(li)}
+        if(jobSpieler.length){jobSpieler.forEach(spielerEintrag=>{const li=document.createElement("li");li.textContent=spielerEintrag.name;liste.appendChild(li)})}else{const li=document.createElement("li");li.textContent="Kein Spieler eingetragen";liste.appendChild(li)}
         knopf.addEventListener("click",()=>{const expanded=knopf.getAttribute("aria-expanded")==="true";knopf.setAttribute("aria-expanded",String(!expanded));liste.hidden=expanded});
         karte.append(titel,anzahl,balken,liste);jobsEl.appendChild(karte);
       });
