@@ -12,6 +12,9 @@
       --panel: rgba(255, 248, 229, 0.94);
       --green: #496b35;
       --red: #8d3429;
+      --sky-top: #94764b;
+      --sky-bottom: #34271c;
+      --shade: rgba(35, 25, 16, 0.62);
     }
     * { box-sizing: border-box; }
     body {
@@ -19,19 +22,69 @@
       margin: 0;
       color: var(--ink);
       font-family: Georgia, "Times New Roman", serif;
-      background: linear-gradient(rgba(35, 25, 16, 0.55), rgba(35, 25, 16, 0.72)),
-        radial-gradient(ellipse at top, #94764b, #34271c 70%);
+      background: linear-gradient(var(--shade), var(--shade)),
+        radial-gradient(ellipse at top, var(--sky-top), var(--sky-bottom) 70%);
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+    body[data-theme="winter"] {
+      --parchment: #eaf6ff;
+      --ink: #10243b;
+      --gold: #a9d9f5;
+      --panel: rgba(237, 248, 255, 0.95);
+      --green: #287c9f;
+      --red: #8d4358;
+      --sky-top: #244f78;
+      --sky-bottom: #07182e;
+      --shade: rgba(6, 24, 45, 0.48);
+    }
+    body[data-theme="spring"] {
+      --parchment: #eff8df;
+      --ink: #25351e;
+      --gold: #a6c76b;
+      --panel: rgba(245, 255, 231, 0.95);
+      --green: #54833b;
+      --red: #a84949;
+      --sky-top: #a6ce7b;
+      --sky-bottom: #47704a;
+      --shade: rgba(30, 58, 31, 0.34);
     }
     header {
+      position: relative;
       padding: 38px 20px 26px;
       color: var(--parchment);
       text-align: center;
       border-bottom: 3px solid var(--gold);
     }
+    .design-picker {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border: 1px solid var(--gold);
+      border-radius: 9px;
+      background: var(--panel);
+      color: var(--ink);
+      box-shadow: 0 3px 12px #0004;
+    }
+    .design-picker label { font-weight: bold; }
+    .design-picker select {
+      width: auto;
+      min-width: 115px;
+      padding: 7px 9px;
+      border: 1px solid var(--gold);
+      border-radius: 6px;
+      background: var(--parchment);
+      color: var(--ink);
+      font: inherit;
+    }
     .crest { width: 110px; height: 110px; margin: 0 auto 12px; display: block; filter: drop-shadow(0 6px 10px rgba(0,0,0,.35)); }
     h1 { margin: 6px 0; font-size: clamp(2rem, 6vw, 3.2rem); }
     header p { margin: 0; font-size: 1.1rem; }
-    main { max-width: 1050px; margin: 22px auto; padding: 0 18px; }
+    main { position: relative; z-index: 1; max-width: 1050px; margin: 22px auto; padding: 0 18px; }
     .tab-list { display: flex; gap: 8px; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid var(--gold); }
     .tab-button {
       padding: 12px 20px; border: 2px solid var(--gold); border-bottom: 0;
@@ -39,7 +92,7 @@
       font: bold 1rem Georgia, "Times New Roman", serif; cursor: pointer;
     }
     .tab-button[aria-selected="true"] { background: var(--parchment); color: var(--ink); }
-    .tab-button:focus-visible { outline: 3px solid white; outline-offset: 3px; }
+    .tab-button:focus-visible, .design-picker select:focus-visible { outline: 3px solid white; outline-offset: 3px; }
     [role="tabpanel"]:focus { outline: none; }
     .section-title { margin: 0 0 16px; color: var(--parchment); font-size: 1.7rem; }
     .jobs-grid, .players-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
@@ -51,18 +104,51 @@
     .job-bar-fill { height: 100%; border-radius: inherit; background: var(--green); }
     .job-bar-fill.full { background: var(--red); }
     .controls { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 22px; }
-    input, select { flex: 1 1 220px; padding: 13px 15px; border: 2px solid var(--gold); border-radius: 8px; background: var(--parchment); color: var(--ink); font: inherit; }
+    input, main select { flex: 1 1 220px; padding: 13px 15px; border: 2px solid var(--gold); border-radius: 8px; background: var(--parchment); color: var(--ink); font: inherit; }
+    .design-picker select { flex: initial; }
     .player-card { display: flex; align-items: center; gap: 14px; padding: 14px; border: 2px solid var(--gold); border-radius: 10px; background: var(--panel); box-shadow: 0 5px 15px #0005; }
     .skin-head { width: 64px; height: 64px; flex: 0 0 64px; border: 2px solid var(--gold); border-radius: 6px; background: #e4d3ae; image-rendering: pixelated; }
     .player-info h3 { margin: 0 0 8px; font-size: 1.2rem; overflow-wrap: anywhere; }
     .player-job { color: #76501d; font-weight: bold; }
+    body[data-theme="winter"] .player-job { color: #245c7d; }
+    body[data-theme="spring"] .player-job { color: #466c31; }
     .empty { grid-column: 1 / -1; color: var(--parchment); text-align: center; }
-    footer { padding: 20px; color: var(--parchment); text-align: center; }
+    footer { position: relative; z-index: 1; padding: 20px; color: var(--parchment); text-align: center; }
+    #weather { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+    .particle { position: absolute; top: -12vh; left: var(--left); opacity: var(--opacity); animation: fall var(--duration) linear var(--delay) infinite; will-change: transform; }
+    body[data-theme="winter"] .particle { color: #fff; text-shadow: 0 0 8px #dff5ff; font-size: var(--size); }
+    body[data-theme="autumn"] .particle { color: #ed9b36; font-size: var(--size); }
+    body[data-theme="spring"] .particle { color: var(--petal-color, #fff1f4); font-size: var(--size); }
+    @keyframes fall {
+      0% { transform: translate3d(0, -8vh, 0) rotate(0deg); }
+      50% { transform: translate3d(var(--drift), 52vh, 0) rotate(180deg); }
+      100% { transform: translate3d(calc(var(--drift) * -0.5), 112vh, 0) rotate(360deg); }
+    }
+    @media (max-width: 520px) {
+      .design-picker { top: 10px; right: 10px; }
+      header { padding-top: 70px; }
+      .design-picker label { display: none; }
+      .design-picker select { min-width: 105px; }
+    }
     @media (max-width: 480px) { .tab-button { flex: 1; padding: 11px 8px; } }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+      .particle { animation: none !important; display: none; }
+    }
   </style>
 </head>
-<body>
+<body data-theme="standard">
+  <div id="weather" aria-hidden="true"></div>
   <header>
+    <div class="design-picker">
+      <label for="designSelect">Design</label>
+      <select id="designSelect" aria-label="Design auswählen">
+        <option value="standard">Standard</option>
+        <option value="winter">Winter</option>
+        <option value="autumn">Herbst</option>
+        <option value="spring">Frühling</option>
+      </select>
+    </div>
     <svg class="crest" viewBox="0 0 120 120" role="img" aria-label="Arcadia Logo">
       <defs>
         <linearGradient id="shieldGrad" x1="0%" x2="100%" y1="0%" y2="100%">
@@ -131,7 +217,6 @@
       "Erbauer", "König", "Königsgarde", "Wirt", "Soldat", "Torwächter", "Minenarbeiter", "Mönch", "Holzfäller", "Ritter"
     ];
 
-    // Mehrere Berufe pro Person sind möglich. Namen und Berufe aus der bereitgestellten Liste.
     const spieler = [
       { name: "Noah", berufe: ["Erbauer"] },
       { name: "Adam", berufe: ["Erbauer"] },
@@ -197,10 +282,48 @@
     const playersEl = document.getElementById("players");
     const searchEl = document.getElementById("search");
     const filterEl = document.getElementById("jobFilter");
+    const designSelect = document.getElementById("designSelect");
+    const weatherEl = document.getElementById("weather");
     const tabs = [
       { button: document.getElementById("playersTab"), panel: document.getElementById("playersPanel") },
       { button: document.getElementById("jobsTab"), panel: document.getElementById("jobsPanel") }
     ];
+
+    function setDesign(theme) {
+      const validThemes = ["standard", "winter", "autumn", "spring"];
+      const selectedTheme = validThemes.includes(theme) ? theme : "standard";
+      document.body.dataset.theme = selectedTheme;
+      designSelect.value = selectedTheme;
+      try { localStorage.setItem("arcadia-design", selectedTheme); } catch {}
+      weatherEl.replaceChildren();
+      if (selectedTheme === "standard") return;
+      const particleSets = {
+        winter: { symbols: ["❄", "❅", "❆"], count: 55 },
+        autumn: { symbols: ["🍂", "🍁"], count: 28 },
+        spring: { symbols: ["🌸", "🌼", "✿"], count: 26 }
+      };
+      const { symbols, count } = particleSets[selectedTheme];
+      for (let i = 0; i < count; i++) {
+        const particle = document.createElement("span");
+        particle.className = "particle";
+        particle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        particle.style.setProperty("--left", `${Math.random() * 100}%`);
+        particle.style.setProperty("--size", `${10 + Math.random() * 14}px`);
+        particle.style.setProperty("--opacity", `${0.45 + Math.random() * 0.5}`);
+        particle.style.setProperty("--duration", `${8 + Math.random() * 12}s`);
+        particle.style.setProperty("--delay", `${-Math.random() * 20}s`);
+        particle.style.setProperty("--drift", `${-60 + Math.random() * 120}px`);
+        if (selectedTheme === "spring") {
+          particle.style.setProperty("--petal-color", ["#ffe5ee", "#fff3b0", "#ffffff"][i % 3]);
+        }
+        weatherEl.appendChild(particle);
+      }
+    }
+
+    designSelect.addEventListener("change", () => setDesign(designSelect.value));
+    let savedDesign = "standard";
+    try { savedDesign = localStorage.getItem("arcadia-design") || "standard"; } catch {}
+    setDesign(savedDesign);
 
     function selectTab(selectedTab, moveFocus = false) {
       tabs.forEach(tab => {
