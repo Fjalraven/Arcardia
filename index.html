@@ -6,113 +6,55 @@
   <title>Arcadia – Spieler &amp; Berufe</title>
   <style>
     :root {
-      --parchment: #f3e7c9;
-      --ink: #302316;
-      --gold: #d3a64a;
-      --panel: rgba(255, 248, 229, 0.94);
-      --green: #496b35;
-      --red: #8d3429;
-      --sky-top: #94764b;
-      --sky-bottom: #34271c;
-      --shade: rgba(35, 25, 16, 0.62);
+      --parchment: #f3e7c9; --ink: #302316; --gold: #d3a64a;
+      --panel: rgba(255, 248, 229, 0.94); --green: #496b35; --red: #8d3429;
+      --sky-top: #94764b; --sky-bottom: #34271c; --shade: rgba(35, 25, 16, 0.62);
+      --logo-light: #f9e9ba; --logo-mid: #d8b25f; --logo-dark: #a97a2d;
+      --logo-inner-light: #f8f2d9; --logo-inner-dark: #d8c39e;
+      --logo-stroke: #3b2617; --logo-accent: #745326; --logo-shield: #8f6f30;
+      --logo-glow: #f0dc9e; --logo-gem: #e1bf6b; --logo-detail: #2b2018;
     }
     * { box-sizing: border-box; }
     body {
-      min-height: 100vh;
-      margin: 0;
-      color: var(--ink);
+      min-height: 100vh; margin: 0; color: var(--ink);
       font-family: Georgia, "Times New Roman", serif;
-      background: linear-gradient(var(--shade), var(--shade)),
-        radial-gradient(ellipse at top, var(--sky-top), var(--sky-bottom) 70%);
+      background: linear-gradient(var(--shade), var(--shade)), radial-gradient(ellipse at top, var(--sky-top), var(--sky-bottom) 70%);
       transition: background 0.5s ease, color 0.5s ease;
     }
     body[data-theme="winter"] {
-      --parchment: #eaf6ff;
-      --ink: #10243b;
-      --gold: #a9d9f5;
-      --panel: rgba(237, 248, 255, 0.95);
-      --green: #287c9f;
-      --red: #8d4358;
-      --sky-top: #244f78;
-      --sky-bottom: #07182e;
-      --shade: rgba(6, 24, 45, 0.48);
+      --parchment: #eaf6ff; --ink: #10243b; --gold: #a9d9f5; --panel: rgba(237, 248, 255, 0.95);
+      --green: #287c9f; --red: #8d4358; --sky-top: #244f78; --sky-bottom: #07182e; --shade: rgba(6, 24, 45, 0.48);
+      --logo-light: #f3fbff; --logo-mid: #a9d9f5; --logo-dark: #397ba5; --logo-inner-light: #ffffff; --logo-inner-dark: #c9e8f5;
+      --logo-stroke: #183c5b; --logo-accent: #4a86a8; --logo-shield: #397ba5; --logo-glow: #e7f8ff; --logo-gem: #83c8e8; --logo-detail: #15354e;
     }
     body[data-theme="spring"] {
-      --parchment: #eff8df;
-      --ink: #25351e;
-      --gold: #a6c76b;
-      --panel: rgba(245, 255, 231, 0.95);
-      --green: #54833b;
-      --red: #a84949;
-      --sky-top: #a6ce7b;
-      --sky-bottom: #47704a;
-      --shade: rgba(30, 58, 31, 0.34);
+      --parchment: #eff8df; --ink: #25351e; --gold: #a6c76b; --panel: rgba(245, 255, 231, 0.95);
+      --green: #54833b; --red: #a84949; --sky-top: #a6ce7b; --sky-bottom: #47704a; --shade: rgba(30, 58, 31, 0.34);
+      --logo-light: #f5ffd9; --logo-mid: #b6d77c; --logo-dark: #709b4c; --logo-inner-light: #fffbea; --logo-inner-dark: #dcebb8;
+      --logo-stroke: #3b5b32; --logo-accent: #739c4e; --logo-shield: #71964a; --logo-glow: #fff3bd; --logo-gem: #d5df80; --logo-detail: #35502e;
     }
     body[data-theme="summer"] {
-      --parchment: #fff9e5;
-      --ink: #163a2e;
-      --gold: #f2d865;
-      --panel: rgba(255, 248, 222, 0.96);
-      --green: #419a56;
-      --red: #c25b38;
-      --sky-top: #6cc6f3;
-      --sky-bottom: #f3d870;
-      --shade: rgba(23, 64, 80, 0.22);
+      --parchment: #fff8df; --ink: #17443d; --gold: #f6c85f; --panel: rgba(255, 250, 229, 0.96);
+      --green: #27836b; --red: #c44f45; --sky-top: #23a9bd; --sky-bottom: #f3a64c; --shade: rgba(10, 65, 72, 0.2);
+      --logo-light: #fff5b8; --logo-mid: #ffc247; --logo-dark: #ed7651; --logo-inner-light: #fffce5; --logo-inner-dark: #ffe0a3;
+      --logo-stroke: #74433b; --logo-accent: #e98548; --logo-shield: #e97950; --logo-glow: #fff4ad; --logo-gem: #35a9a0; --logo-detail: #563a3c;
     }
     body[data-theme="autumn"] {
-      --parchment: #f7efe0;
-      --ink: #382616;
-      --gold: #d4a66d;
-      --panel: rgba(255, 246, 232, 0.96);
-      --green: #7d6f2a;
-      --red: #b14a30;
-      --sky-top: #d89b4d;
-      --sky-bottom: #6b4d2a;
-      --shade: rgba(58, 36, 20, 0.28);
+      --parchment: #f7efe0; --ink: #382616; --gold: #d4a66d; --panel: rgba(255, 246, 232, 0.96);
+      --green: #7d6f2a; --red: #b14a30; --sky-top: #d89b4d; --sky-bottom: #6b4d2a; --shade: rgba(58, 36, 20, 0.28);
+      --logo-light: #ffedc5; --logo-mid: #d89b4d; --logo-dark: #985331; --logo-inner-light: #fff4df; --logo-inner-dark: #e5bd83;
+      --logo-stroke: #52331f; --logo-accent: #a45b2e; --logo-shield: #a75e32; --logo-glow: #ffe1a0; --logo-gem: #d78a3f; --logo-detail: #3c291c;
     }
-    header {
-      position: relative;
-      padding: 38px 20px 26px;
-      color: var(--parchment);
-      text-align: center;
-      border-bottom: 3px solid var(--gold);
-    }
-    .design-picker {
-      position: absolute;
-      top: 16px;
-      right: 18px;
-      z-index: 5;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 10px;
-      border: 1px solid var(--gold);
-      border-radius: 9px;
-      background: var(--panel);
-      color: var(--ink);
-      box-shadow: 0 3px 12px #0004;
-    }
+    header { position: relative; padding: 38px 20px 26px; color: var(--parchment); text-align: center; border-bottom: 3px solid var(--gold); }
+    .design-picker { position: absolute; top: 16px; right: 18px; z-index: 5; display: flex; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid var(--gold); border-radius: 9px; background: var(--panel); color: var(--ink); box-shadow: 0 3px 12px #0004; }
     .design-picker label { font-weight: bold; }
-    .design-picker select {
-      width: auto;
-      min-width: 115px;
-      padding: 7px 9px;
-      border: 1px solid var(--gold);
-      border-radius: 6px;
-      background: var(--parchment);
-      color: var(--ink);
-      font: inherit;
-    }
+    .design-picker select { width: auto; min-width: 115px; padding: 7px 9px; border: 1px solid var(--gold); border-radius: 6px; background: var(--parchment); color: var(--ink); font: inherit; }
     .crest { width: 110px; height: 110px; margin: 0 auto 12px; display: block; filter: drop-shadow(0 6px 10px rgba(0,0,0,.35)); }
     h1 { margin: 6px 0; font-size: clamp(2rem, 6vw, 3.2rem); }
     header p { margin: 0; font-size: 1.1rem; }
     main { position: relative; z-index: 1; max-width: 1050px; margin: 22px auto; padding: 0 18px; }
     .tab-list { display: flex; gap: 8px; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid var(--gold); }
-    .tab-button {
-      padding: 12px 20px; border: 2px solid var(--gold); border-bottom: 0;
-      border-radius: 9px 9px 0 0; background: rgba(255,248,229,.72); color: var(--parchment);
-      font: bold 1rem Georgia, "Times New Roman", serif; cursor: pointer;
-    }
+    .tab-button { padding: 12px 20px; border: 2px solid var(--gold); border-bottom: 0; border-radius: 9px 9px 0 0; background: rgba(255,248,229,.72); color: var(--parchment); font: bold 1rem Georgia, "Times New Roman", serif; cursor: pointer; }
     .tab-button[aria-selected="true"] { background: var(--parchment); color: var(--ink); }
     .tab-button:focus-visible, .design-picker select:focus-visible { outline: 3px solid white; outline-offset: 3px; }
     [role="tabpanel"]:focus { outline: none; }
@@ -134,7 +76,7 @@
     .player-job { color: #76501d; font-weight: bold; }
     body[data-theme="winter"] .player-job { color: #245c7d; }
     body[data-theme="spring"] .player-job { color: #466c31; }
-    body[data-theme="summer"] .player-job { color: #286649; }
+    body[data-theme="summer"] .player-job { color: #176f65; }
     .empty { grid-column: 1 / -1; color: var(--parchment); text-align: center; }
     footer { position: relative; z-index: 1; padding: 20px; color: var(--parchment); text-align: center; }
     #weather { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
@@ -142,176 +84,51 @@
     body[data-theme="winter"] .particle { color: #fff; text-shadow: 0 0 8px #dff5ff; font-size: var(--size); }
     body[data-theme="autumn"] .particle { color: #ed9b36; font-size: var(--size); }
     body[data-theme="spring"] .particle { color: var(--petal-color, #fff1f4); font-size: var(--size); }
-    body[data-theme="summer"] .particle { color: #f7df7e; text-shadow: 0 0 12px rgba(255,255,255,.6); font-size: var(--size); }
-    @keyframes fall {
-      0% { transform: translate3d(0, -8vh, 0) rotate(0deg); }
-      50% { transform: translate3d(var(--drift), 52vh, 0) rotate(180deg); }
-      100% { transform: translate3d(calc(var(--drift) * -0.5), 112vh, 0) rotate(360deg); }
-    }
-    @media (max-width: 520px) {
-      .design-picker { top: 10px; right: 10px; }
-      header { padding-top: 70px; }
-      .design-picker label { display: none; }
-      .design-picker select { min-width: 105px; }
-    }
+    body[data-theme="summer"] .particle { top: var(--top); color: var(--spark-color); font-size: var(--size); text-shadow: 0 0 10px rgba(255, 247, 179, .9); animation: firefly-drift var(--duration) ease-in-out var(--delay) infinite alternate; }
+    @keyframes fall { 0% { transform: translate3d(0, -8vh, 0) rotate(0deg); } 50% { transform: translate3d(var(--drift), 52vh, 0) rotate(180deg); } 100% { transform: translate3d(calc(var(--drift) * -0.5), 112vh, 0) rotate(360deg); } }
+    @keyframes firefly-drift { 0% { transform: translate3d(0, 0, 0) scale(.65); opacity: .25; } 50% { opacity: 1; } 100% { transform: translate3d(var(--drift), 45px, 0) scale(1.25); opacity: .45; } }
+    @media (max-width: 520px) { .design-picker { top: 10px; right: 10px; } header { padding-top: 70px; } .design-picker label { display: none; } .design-picker select { min-width: 105px; } }
     @media (max-width: 480px) { .tab-button { flex: 1; padding: 11px 8px; } }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
-      .particle { animation: none !important; display: none; }
-    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; } .particle { animation: none !important; display: none; } }
   </style>
 </head>
-<body data-theme="standard">
+<body data-theme="winter">
   <div id="weather" aria-hidden="true"></div>
   <header>
-    <div class="design-picker">
-      <label for="designSelect">Design</label>
-      <select id="designSelect" aria-label="Design auswählen">
-        <option value="winter">Winter</option>
-        <option value="autumn">Herbst</option>
-        <option value="spring">Frühling</option>
-        <option value="summer">Sommer</option>
-      </select>
-    </div>
+    <div class="design-picker"><label for="designSelect">Design</label><select id="designSelect" aria-label="Design auswählen"><option value="winter">Winter</option><option value="autumn">Herbst</option><option value="spring">Frühling</option><option value="summer">Sommer</option></select></div>
     <svg class="crest" viewBox="0 0 120 120" role="img" aria-label="Arcadia Logo">
       <defs>
-        <linearGradient id="shieldGrad" x1="0%" x2="100%" y1="0%" y2="100%">
-          <stop offset="0%" stop-color="#f9e9ba"/><stop offset="50%" stop-color="#d8b25f"/><stop offset="100%" stop-color="#a97a2d"/>
-        </linearGradient>
-        <linearGradient id="innerGrad" x1="0%" x2="100%" y1="0%" y2="100%">
-          <stop offset="0%" stop-color="#f8f2d9"/><stop offset="100%" stop-color="#d8c39e"/>
-        </linearGradient>
+        <linearGradient id="shieldGrad" x1="0%" x2="100%" y1="0%" y2="100%"><stop offset="0%" stop-color="var(--logo-light)"/><stop offset="50%" stop-color="var(--logo-mid)"/><stop offset="100%" stop-color="var(--logo-dark)"/></linearGradient>
+        <linearGradient id="innerGrad" x1="0%" x2="100%" y1="0%" y2="100%"><stop offset="0%" stop-color="var(--logo-inner-light)"/><stop offset="100%" stop-color="var(--logo-inner-dark)"/></linearGradient>
       </defs>
-      <path d="M60 8 L98 18 L98 56 C98 82 82 100 60 110 C38 100 22 82 22 56 L22 18 Z" fill="url(#shieldGrad)" stroke="#3b2617" stroke-width="3"/>
-      <path d="M60 18 L88 25 L88 55 C88 72 76 86 60 94 C44 86 32 72 32 55 L32 25 Z" fill="url(#innerGrad)" stroke="#3b2617" stroke-width="2"/>
-      <path d="M39 45 L60 26 L81 45 L75 47 L68 40 L60 45 L52 40 L45 47 Z" fill="#745326" opacity=".8"/>
-      <path d="M46 55 L60 44 L74 55 L71 76 L60 85 L49 76 Z" fill="#8f6f30"/>
-      <path d="M60 49 L64 62 L60 73 L56 62 Z" fill="#f0dc9e"/>
-      <path d="M52 60 L60 57 L68 60 L69 68 L60 74 L51 68 Z" fill="#e1bf6b"/>
-      <path d="M27 42 L35 39 L39 45 L33 49 Z M93 42 L85 39 L81 45 L87 49 Z" fill="#2b2018" opacity=".8"/>
-      <path d="M41 32 L60 19 L79 32" fill="none" stroke="#3b2617" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="60" cy="41" r="5" fill="#3b2617"/>
-      <path d="M60 47 L60 84 M46 62 L60 54 L74 62" fill="none" stroke="#3b2617" stroke-width="3" stroke-linecap="round"/>
+      <path d="M60 8 L98 18 L98 56 C98 82 82 100 60 110 C38 100 22 82 22 56 L22 18 Z" fill="url(#shieldGrad)" stroke="var(--logo-stroke)" stroke-width="3"/>
+      <path d="M60 18 L88 25 L88 55 C88 72 76 86 60 94 C44 86 32 72 32 55 L32 25 Z" fill="url(#innerGrad)" stroke="var(--logo-stroke)" stroke-width="2"/>
+      <path d="M39 45 L60 26 L81 45 L75 47 L68 40 L60 45 L52 40 L45 47 Z" fill="var(--logo-accent)" opacity=".9"/>
+      <path d="M46 55 L60 44 L74 55 L71 76 L60 85 L49 76 Z" fill="var(--logo-shield)"/>
+      <path d="M60 49 L64 62 L60 73 L56 62 Z" fill="var(--logo-glow)"/>
+      <path d="M52 60 L60 57 L68 60 L69 68 L60 74 L51 68 Z" fill="var(--logo-gem)"/>
+      <path d="M27 42 L35 39 L39 45 L33 49 Z M93 42 L85 39 L81 45 L87 49 Z" fill="var(--logo-detail)" opacity=".85"/>
+      <path d="M41 32 L60 19 L79 32" fill="none" stroke="var(--logo-stroke)" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="60" cy="41" r="5" fill="var(--logo-detail)"/>
+      <path d="M60 47 L60 84 M46 62 L60 54 L74 62" fill="none" stroke="var(--logo-stroke)" stroke-width="3" stroke-linecap="round"/>
     </svg>
-    <h1>Arcadia</h1>
-    <p>Die Bewohner, ihre Berufe und freie Plätze</p>
+    <h1>Arcadia</h1><p>Die Bewohner, ihre Berufe und freie Plätze</p>
   </header>
   <main>
-    <div class="tab-list" role="tablist" aria-label="Arcadia Bereiche">
-      <button class="tab-button" id="playersTab" type="button" role="tab" aria-selected="true" aria-controls="playersPanel" tabindex="0">Spieler</button>
-      <button class="tab-button" id="jobsTab" type="button" role="tab" aria-selected="false" aria-controls="jobsPanel" tabindex="-1">Berufe &amp; freie Plätze</button>
-    </div>
-    <section id="playersPanel" role="tabpanel" aria-labelledby="playersTab" tabindex="0">
-      <h2 class="section-title">Spielerinnen und Spieler</h2>
-      <div class="controls">
-        <input id="search" type="search" placeholder="Spieler suchen …" aria-label="Spieler suchen">
-        <select id="jobFilter" aria-label="Nach Beruf filtern"><option value="">Alle Berufe</option></select>
-      </div>
-      <div id="players" class="players-grid" aria-live="polite"></div>
-    </section>
-    <section id="jobsPanel" role="tabpanel" aria-labelledby="jobsTab" tabindex="0" hidden>
-      <h2 class="section-title">Freie Plätze nach Beruf</h2>
-      <div id="jobs" class="jobs-grid" aria-live="polite"></div>
-    </section>
+    <div class="tab-list" role="tablist" aria-label="Arcadia Bereiche"><button class="tab-button" id="playersTab" type="button" role="tab" aria-selected="true" aria-controls="playersPanel" tabindex="0">Spieler</button><button class="tab-button" id="jobsTab" type="button" role="tab" aria-selected="false" aria-controls="jobsPanel" tabindex="-1">Berufe &amp; freie Plätze</button></div>
+    <section id="playersPanel" role="tabpanel" aria-labelledby="playersTab" tabindex="0"><h2 class="section-title">Spielerinnen und Spieler</h2><div class="controls"><input id="search" type="search" placeholder="Spieler suchen …" aria-label="Spieler suchen"><select id="jobFilter" aria-label="Nach Beruf filtern"><option value="">Alle Berufe</option></select></div><div id="players" class="players-grid" aria-live="polite"></div></section>
+    <section id="jobsPanel" role="tabpanel" aria-labelledby="jobsTab" tabindex="0" hidden><h2 class="section-title">Freie Plätze nach Beruf</h2><div id="jobs" class="jobs-grid" aria-live="polite"></div></section>
   </main>
   <footer>Willkommen in Arcadia – unserem mittelalterlichen Minecraft-Rollenspiel!</footer>
-
   <script>
     const DEFAULT_MAX_PRO_BERUF = 100;
-    const MAX_PRO_BERUF_NACH_BERUF = {
-      Schmied: 5,
-      Marktschreier: 5,
-      Magier: 5,
-      Bäcker: 5,
-      Jäger: 5,
-      Bauer: 100,
-      Metzger: 5,
-      Fischer: 100,
-      Ramschladenbesitzer: 6,
-      König: 1,
-      Königsgarde: 3,
-      Wirt: 5,
-      Soldat: 200,
-      Torwächter: 20,
-      Mönch: 20,
-      Ritter: 10
-    };
-    const berufe = [
-      "Schmied", "Marktschreier", "Magier", "Bäcker", "Jäger", "Bauer", "Metzger", "Fischer", "Ramschladenbesitzer",
-      "Erbauer", "König", "Königsgarde", "Wirt", "Soldat", "Torwächter", "Minenarbeiter", "Mönch", "Holzfäller", "Ritter"
-    ];
-
+    const MAX_PRO_BERUF_NACH_BERUF = { Schmied: 5, Marktschreier: 5, Magier: 5, Bäcker: 5, Jäger: 5, Bauer: 100, Metzger: 5, Fischer: 100, Ramschladenbesitzer: 6, König: 1, Königsgarde: 3, Wirt: 5, Soldat: 200, Torwächter: 20, Mönch: 20, Ritter: 10 };
+    const berufe = ["Schmied", "Marktschreier", "Magier", "Bäcker", "Jäger", "Bauer", "Metzger", "Fischer", "Ramschladenbesitzer", "Erbauer", "König", "Königsgarde", "Wirt", "Soldat", "Torwächter", "Minenarbeiter", "Mönch", "Holzfäller", "Ritter"];
     const spieler = [
-      { name: "Noah", berufe: ["Erbauer"] },
-      { name: "Adam", berufe: ["Erbauer"] },
-      { name: "PaperStraw58602", berufe: ["König"] },
-      { name: "Mojel11YT", berufe: ["Königsgarde"] },
-      { name: "Benzjamin", berufe: ["Wirt"] },
-      { name: "PHOENIX XD", berufe: ["Soldat"] },
-      { name: "x_simmi", berufe: ["Fischer"] },
-      { name: "PriicyRex4038", berufe: ["Torwächter"] },
-      { name: "Mapaa5", berufe: ["Fischer"] },
-      { name: "AetherXgames", berufe: ["Minenarbeiter"] },
-      { name: "LettLukas", berufe: ["Bäcker"] },
-      { name: "Jakobber2000", berufe: ["Soldat"] },
-      { name: "xr643", berufe: ["Bauer"] },
-      { name: "Caraoelin", berufe: ["Bauer"] },
-      { name: "Quirity15", berufe: ["Soldat"] },
-      { name: "Delfine4904", berufe: ["Bauer"] },
-      { name: "Maax67", berufe: ["Mönch"] },
-      { name: "Craft4Life12", berufe: ["Soldat"] },
-      { name: "zackdiebohne", berufe: ["Schmied"] },
-      { name: "Zero", berufe: ["Soldat"] },
-      { name: "DiamondDragon", berufe: ["Soldat"] },
-      { name: "Sharkalarm", berufe: ["Holzfäller"] },
-      { name: "Babbles1042", berufe: ["Bauer"] },
-      { name: "RichiHD", berufe: ["Bauer"] },
-      { name: "Nao878", berufe: ["Soldat"] },
-      { name: "Bluecroni12", berufe: ["Bauer"] },
-      { name: "FantasticoVici", berufe: ["Holzfäller"] },
-      { name: "Zupiruchi", berufe: ["Mönch"] },
-      { name: "CaptainBintang", berufe: ["Holzfäller"] },
-      { name: "TheFiredoom", berufe: ["Minenarbeiter"] },
-      { name: "Akakarius", berufe: ["Ritter"] },
-      { name: "Diefire", berufe: ["Ritter"] },
-      { name: "Eigella", berufe: ["Minenarbeiter"] },
-      { name: "N04H_MINECR4FT", berufe: ["Fischer"] },
-      { name: "Phoenix90312", berufe: ["Soldat"] },
-      { name: "Kenanzockt5814", berufe: ["Fischer"] },
-      { name: "LeadedSnow51573", berufe: ["Ritter"] },
-      { name: "GamedFio2024", berufe: ["Fischer"] },
-      { name: "Gedankebar6029", berufe: ["Fischer"] },
-      { name: "truewither", berufe: ["Soldat"] },
-      { name: "ScarletJP", berufe: ["Soldat"] },
-      { name: "Timmn1893", berufe: ["Minenarbeiter", "Soldat"] },
-      { name: "SnowingSun3017", berufe: ["Bauer"] },
-      { name: "Zwergnase2111", berufe: ["Soldat"] },
-      { name: "Emilcrafty03", berufe: ["Mönch"] },
-      { name: "Spilraleel", berufe: ["Bäcker"] },
-      { name: "C4_Meister", berufe: ["Soldat"] },
-      { name: "Entonrat12345", berufe: ["Ritter"] },
-      { name: "MaxiF180", berufe: ["Soldat", "Bäcker"] },
-      { name: "ItsSamuMC", berufe: ["Soldat"] },
-      { name: "FindusMC", berufe: ["Holzfäller"] },
-      { name: "yellowrider822", berufe: ["Soldat"] },
-      { name: "NCHTZ1", berufe: ["Holzfäller"] },
-      { name: "hannes1235090", berufe: ["Bauer", "Soldat"] },
-      { name: "DinoNugget1242", berufe: ["Minenarbeiter"] },
-      { name: "Rex_Tenebris377", berufe: ["Soldat", "Holzfäller"] },
-      { name: "DarkKnightVI", berufe: ["Soldat", "Holzfäller"] },
-      { name: "Fjalraven", berufe: ["Erbauer", "Magier", "Torwächter"] }
+      { name: "Noah", berufe: ["Erbauer"] }, { name: "Adam", berufe: ["Erbauer"] }, { name: "PaperStraw58602", berufe: ["König"] }, { name: "Mojel11YT", berufe: ["Königsgarde"] }, { name: "Benzjamin", berufe: ["Wirt"] }, { name: "PHOENIX XD", berufe: ["Soldat"] }, { name: "x_simmi", berufe: ["Fischer"] }, { name: "PriicyRex4038", berufe: ["Torwächter"] }, { name: "Mapaa5", berufe: ["Fischer"] }, { name: "AetherXgames", berufe: ["Minenarbeiter"] }, { name: "LettLukas", berufe: ["Bäcker"] }, { name: "Jakobber2000", berufe: ["Soldat"] }, { name: "xr643", berufe: ["Bauer"] }, { name: "Caraoelin", berufe: ["Bauer"] }, { name: "Quirity15", berufe: ["Soldat"] }, { name: "Delfine4904", berufe: ["Bauer"] }, { name: "Maax67", berufe: ["Mönch"] }, { name: "Craft4Life12", berufe: ["Soldat"] }, { name: "zackdiebohne", berufe: ["Schmied"] }, { name: "Zero", berufe: ["Soldat"] }, { name: "DiamondDragon", berufe: ["Soldat"] }, { name: "Sharkalarm", berufe: ["Holzfäller"] }, { name: "Babbles1042", berufe: ["Bauer"] }, { name: "RichiHD", berufe: ["Bauer"] }, { name: "Nao878", berufe: ["Soldat"] }, { name: "Bluecroni12", berufe: ["Bauer"] }, { name: "FantasticoVici", berufe: ["Holzfäller"] }, { name: "Zupiruchi", berufe: ["Mönch"] }, { name: "CaptainBintang", berufe: ["Holzfäller"] }, { name: "TheFiredoom", berufe: ["Minenarbeiter"] }, { name: "Akakarius", berufe: ["Ritter"] }, { name: "Diefire", berufe: ["Ritter"] }, { name: "Eigella", berufe: ["Minenarbeiter"] }, { name: "N04H_MINECR4FT", berufe: ["Fischer"] }, { name: "Phoenix90312", berufe: ["Soldat"] }, { name: "Kenanzockt5814", berufe: ["Fischer"] }, { name: "LeadedSnow51573", berufe: ["Ritter"] }, { name: "GamedFio2024", berufe: ["Fischer"] }, { name: "Gedankebar6029", berufe: ["Fischer"] }, { name: "truewither", berufe: ["Soldat"] }, { name: "ScarletJP", berufe: ["Soldat"] }, { name: "Timmn1893", berufe: ["Minenarbeiter", "Soldat"] }, { name: "SnowingSun3017", berufe: ["Bauer"] }, { name: "Zwergnase2111", berufe: ["Soldat"] }, { name: "Emilcrafty03", berufe: ["Mönch"] }, { name: "Spilraleel", berufe: ["Bäcker"] }, { name: "C4_Meister", berufe: ["Soldat"] }, { name: "Entonrat12345", berufe: ["Ritter"] }, { name: "MaxiF180", berufe: ["Soldat", "Bäcker"] }, { name: "ItsSamuMC", berufe: ["Soldat"] }, { name: "FindusMC", berufe: ["Holzfäller"] }, { name: "yellowrider822", berufe: ["Soldat"] }, { name: "NCHTZ1", berufe: ["Holzfäller"] }, { name: "hannes1235090", berufe: ["Bauer", "Soldat"] }, { name: "DinoNugget1242", berufe: ["Minenarbeiter"] }, { name: "Rex_Tenebris377", berufe: ["Soldat", "Holzfäller"] }, { name: "DarkKnightVI", berufe: ["Soldat", "Holzfäller"] }, { name: "Fjalraven", berufe: ["Erbauer", "Magier", "Torwächter"] }
     ];
-
-    const jobsEl = document.getElementById("jobs");
-    const playersEl = document.getElementById("players");
-    const searchEl = document.getElementById("search");
-    const filterEl = document.getElementById("jobFilter");
-    const designSelect = document.getElementById("designSelect");
-    const weatherEl = document.getElementById("weather");
-    const tabs = [
-      { button: document.getElementById("playersTab"), panel: document.getElementById("playersPanel") },
-      { button: document.getElementById("jobsTab"), panel: document.getElementById("jobsPanel") }
-    ];
+    const jobsEl = document.getElementById("jobs"), playersEl = document.getElementById("players"), searchEl = document.getElementById("search"), filterEl = document.getElementById("jobFilter"), designSelect = document.getElementById("designSelect"), weatherEl = document.getElementById("weather");
+    const tabs = [{ button: document.getElementById("playersTab"), panel: document.getElementById("playersPanel") }, { button: document.getElementById("jobsTab"), panel: document.getElementById("jobsPanel") }];
 
     function setDesign(theme) {
       const validThemes = ["winter", "autumn", "spring", "summer"];
@@ -324,7 +141,7 @@
         winter: { symbols: ["❄", "❅", "❆"], count: 55 },
         autumn: { symbols: ["🍂", "🍁"], count: 28 },
         spring: { symbols: ["🌸", "🌼", "✿"], count: 26 },
-        summer: { symbols: ["✦", "☀", "✧"], count: 30 }
+        summer: { symbols: ["✦", "✧", "•"], count: 34 }
       };
       const { symbols, count } = particleSets[selectedTheme];
       for (let i = 0; i < count; i++) {
@@ -337,118 +154,60 @@
         particle.style.setProperty("--duration", `${8 + Math.random() * 12}s`);
         particle.style.setProperty("--delay", `${-Math.random() * 20}s`);
         particle.style.setProperty("--drift", `${-60 + Math.random() * 120}px`);
-        if (selectedTheme === "spring") {
-          particle.style.setProperty("--petal-color", ["#ffe5ee", "#fff3b0", "#ffffff"][i % 3]);
+        if (selectedTheme === "spring") particle.style.setProperty("--petal-color", ["#ffe5ee", "#fff3b0", "#ffffff"][i % 3]);
+        if (selectedTheme === "summer") {
+          particle.style.setProperty("--top", `${Math.random() * 100}%`);
+          particle.style.setProperty("--duration", `${3 + Math.random() * 6}s`);
+          particle.style.setProperty("--delay", `${-Math.random() * 8}s`);
+          particle.style.setProperty("--spark-color", ["#fff5b0", "#ffe17b", "#ffffff"][i % 3]);
         }
         weatherEl.appendChild(particle);
       }
     }
-
     designSelect.addEventListener("change", () => setDesign(designSelect.value));
     let savedDesign = "winter";
     try { savedDesign = localStorage.getItem("arcadia-design") || "winter"; } catch {}
     setDesign(savedDesign);
 
     function selectTab(selectedTab, moveFocus = false) {
-      tabs.forEach(tab => {
-        const selected = tab === selectedTab;
-        tab.button.setAttribute("aria-selected", String(selected));
-        tab.button.tabIndex = selected ? 0 : -1;
-        tab.panel.hidden = !selected;
-      });
+      tabs.forEach(tab => { const selected = tab === selectedTab; tab.button.setAttribute("aria-selected", String(selected)); tab.button.tabIndex = selected ? 0 : -1; tab.panel.hidden = !selected; });
       if (moveFocus) selectedTab.button.focus();
     }
     tabs.forEach((tab, index) => {
       tab.button.addEventListener("click", () => selectTab(tab));
-      tab.button.addEventListener("keydown", event => {
-        if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
-          event.preventDefault();
-          const direction = event.key === "ArrowRight" ? 1 : -1;
-          selectTab(tabs[(index + direction + tabs.length) % tabs.length], true);
-        }
-      });
+      tab.button.addEventListener("keydown", event => { if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); const direction = event.key === "ArrowRight" ? 1 : -1; selectTab(tabs[(index + direction + tabs.length) % tabs.length], true); } });
     });
-
     function renderJobs() {
       jobsEl.replaceChildren();
       berufe.forEach(beruf => {
         const maxPlaetze = MAX_PRO_BERUF_NACH_BERUF[beruf] ?? DEFAULT_MAX_PRO_BERUF;
         const belegt = spieler.filter(eintrag => eintrag.berufe.includes(beruf)).length;
         const frei = Math.max(0, maxPlaetze - belegt);
-        const karte = document.createElement("article");
-        karte.className = "job-card";
-        const titel = document.createElement("h3");
-        titel.textContent = beruf;
-        const anzahl = document.createElement("p");
-        anzahl.className = `job-count${frei === 0 ? " full" : ""}`;
-        anzahl.textContent = frei === 0
-          ? `Ausgebucht (${belegt}/${maxPlaetze})`
-          : `${frei} von ${maxPlaetze} Plätzen frei (${belegt} belegt)`;
-        const balken = document.createElement("div");
-        balken.className = "job-bar";
-        balken.setAttribute("role", "progressbar");
-        balken.setAttribute("aria-label", `Belegte Plätze für ${beruf}`);
-        balken.setAttribute("aria-valuemin", "0");
-        balken.setAttribute("aria-valuemax", String(maxPlaetze));
-        balken.setAttribute("aria-valuenow", String(Math.min(belegt, maxPlaetze)));
-        const fuellung = document.createElement("div");
-        fuellung.className = `job-bar-fill${frei === 0 ? " full" : ""}`;
-        fuellung.style.width = `${Math.min(belegt / maxPlaetze, 1) * 100}%`;
-        balken.appendChild(fuellung);
-        karte.append(titel, anzahl, balken);
-        jobsEl.appendChild(karte);
+        const karte = document.createElement("article"); karte.className = "job-card";
+        const titel = document.createElement("h3"); titel.textContent = beruf;
+        const anzahl = document.createElement("p"); anzahl.className = `job-count${frei === 0 ? " full" : ""}`;
+        anzahl.textContent = frei === 0 ? `Ausgebucht (${belegt}/${maxPlaetze})` : `${frei} von ${maxPlaetze} Plätzen frei (${belegt} belegt)`;
+        const balken = document.createElement("div"); balken.className = "job-bar"; balken.setAttribute("role", "progressbar"); balken.setAttribute("aria-label", `Belegte Plätze für ${beruf}`); balken.setAttribute("aria-valuemin", "0"); balken.setAttribute("aria-valuemax", String(maxPlaetze)); balken.setAttribute("aria-valuenow", String(Math.min(belegt, maxPlaetze)));
+        const fuellung = document.createElement("div"); fuellung.className = `job-bar-fill${frei === 0 ? " full" : ""}`; fuellung.style.width = `${Math.min(belegt / maxPlaetze, 1) * 100}%`;
+        balken.appendChild(fuellung); karte.append(titel, anzahl, balken); jobsEl.appendChild(karte);
       });
     }
-
-    berufe.forEach(beruf => {
-      const option = document.createElement("option");
-      option.value = beruf;
-      option.textContent = beruf;
-      filterEl.appendChild(option);
-    });
-
+    berufe.forEach(beruf => { const option = document.createElement("option"); option.value = beruf; option.textContent = beruf; filterEl.appendChild(option); });
     function renderPlayers() {
-      const suche = searchEl.value.trim().toLowerCase();
-      const ausgewaehlterBeruf = filterEl.value;
-      const treffer = spieler.filter(eintrag =>
-        eintrag.name.toLowerCase().includes(suche) &&
-        (!ausgewaehlterBeruf || eintrag.berufe.includes(ausgewaehlterBeruf))
-      );
+      const suche = searchEl.value.trim().toLowerCase(), ausgewaehlterBeruf = filterEl.value;
+      const treffer = spieler.filter(eintrag => eintrag.name.toLowerCase().includes(suche) && (!ausgewaehlterBeruf || eintrag.berufe.includes(ausgewaehlterBeruf)));
       playersEl.replaceChildren();
-      if (treffer.length === 0) {
-        const meldung = document.createElement("p");
-        meldung.className = "empty";
-        meldung.textContent = "Keine Spieler gefunden.";
-        playersEl.appendChild(meldung);
-        return;
-      }
+      if (treffer.length === 0) { const meldung = document.createElement("p"); meldung.className = "empty"; meldung.textContent = "Keine Spieler gefunden."; playersEl.appendChild(meldung); return; }
       treffer.forEach(eintrag => {
-        const karte = document.createElement("article");
-        karte.className = "player-card";
-        const kopf = document.createElement("img");
-        kopf.className = "skin-head";
-        kopf.src = `https://mc-heads.net/avatar/${encodeURIComponent(eintrag.name)}/64`;
-        kopf.alt = `Minecraft-Skin-Kopf von ${eintrag.name}`;
-        kopf.width = 64;
-        kopf.height = 64;
-        kopf.onerror = () => { kopf.style.visibility = "hidden"; };
-        const info = document.createElement("div");
-        info.className = "player-info";
-        const name = document.createElement("h3");
-        name.textContent = eintrag.name;
-        const job = document.createElement("div");
-        job.className = "player-job";
-        job.textContent = `Berufe: ${eintrag.berufe.join(", ")}`;
-        info.append(name, job);
-        karte.append(kopf, info);
-        playersEl.appendChild(karte);
+        const karte = document.createElement("article"); karte.className = "player-card";
+        const kopf = document.createElement("img"); kopf.className = "skin-head"; kopf.src = `https://mc-heads.net/avatar/${encodeURIComponent(eintrag.name)}/64`; kopf.alt = `Minecraft-Skin-Kopf von ${eintrag.name}`; kopf.width = 64; kopf.height = 64; kopf.onerror = () => { kopf.style.visibility = "hidden"; };
+        const info = document.createElement("div"); info.className = "player-info";
+        const name = document.createElement("h3"); name.textContent = eintrag.name;
+        const job = document.createElement("div"); job.className = "player-job"; job.textContent = `Berufe: ${eintrag.berufe.join(", ")}`;
+        info.append(name, job); karte.append(kopf, info); playersEl.appendChild(karte);
       });
     }
-
-    searchEl.addEventListener("input", renderPlayers);
-    filterEl.addEventListener("change", renderPlayers);
-    renderJobs();
-    renderPlayers();
+    searchEl.addEventListener("input", renderPlayers); filterEl.addEventListener("change", renderPlayers); renderJobs(); renderPlayers();
   </script>
 </body>
 </html>
