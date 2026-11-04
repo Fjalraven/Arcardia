@@ -48,6 +48,28 @@
       --sky-bottom: #47704a;
       --shade: rgba(30, 58, 31, 0.34);
     }
+    body[data-theme="summer"] {
+      --parchment: #fff9e5;
+      --ink: #163a2e;
+      --gold: #f2d865;
+      --panel: rgba(255, 248, 222, 0.96);
+      --green: #419a56;
+      --red: #c25b38;
+      --sky-top: #6cc6f3;
+      --sky-bottom: #f3d870;
+      --shade: rgba(23, 64, 80, 0.22);
+    }
+    body[data-theme="autumn"] {
+      --parchment: #f7efe0;
+      --ink: #382616;
+      --gold: #d4a66d;
+      --panel: rgba(255, 246, 232, 0.96);
+      --green: #7d6f2a;
+      --red: #b14a30;
+      --sky-top: #d89b4d;
+      --sky-bottom: #6b4d2a;
+      --shade: rgba(58, 36, 20, 0.28);
+    }
     header {
       position: relative;
       padding: 38px 20px 26px;
@@ -112,6 +134,7 @@
     .player-job { color: #76501d; font-weight: bold; }
     body[data-theme="winter"] .player-job { color: #245c7d; }
     body[data-theme="spring"] .player-job { color: #466c31; }
+    body[data-theme="summer"] .player-job { color: #286649; }
     .empty { grid-column: 1 / -1; color: var(--parchment); text-align: center; }
     footer { position: relative; z-index: 1; padding: 20px; color: var(--parchment); text-align: center; }
     #weather { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
@@ -119,6 +142,7 @@
     body[data-theme="winter"] .particle { color: #fff; text-shadow: 0 0 8px #dff5ff; font-size: var(--size); }
     body[data-theme="autumn"] .particle { color: #ed9b36; font-size: var(--size); }
     body[data-theme="spring"] .particle { color: var(--petal-color, #fff1f4); font-size: var(--size); }
+    body[data-theme="summer"] .particle { color: #f7df7e; text-shadow: 0 0 12px rgba(255,255,255,.6); font-size: var(--size); }
     @keyframes fall {
       0% { transform: translate3d(0, -8vh, 0) rotate(0deg); }
       50% { transform: translate3d(var(--drift), 52vh, 0) rotate(180deg); }
@@ -147,6 +171,7 @@
         <option value="winter">Winter</option>
         <option value="autumn">Herbst</option>
         <option value="spring">Frühling</option>
+        <option value="summer">Sommer</option>
       </select>
     </div>
     <svg class="crest" viewBox="0 0 120 120" role="img" aria-label="Arcadia Logo">
@@ -290,7 +315,7 @@
     ];
 
     function setDesign(theme) {
-      const validThemes = ["standard", "winter", "autumn", "spring"];
+      const validThemes = ["standard", "winter", "autumn", "spring", "summer"];
       const selectedTheme = validThemes.includes(theme) ? theme : "standard";
       document.body.dataset.theme = selectedTheme;
       designSelect.value = selectedTheme;
@@ -300,7 +325,8 @@
       const particleSets = {
         winter: { symbols: ["❄", "❅", "❆"], count: 55 },
         autumn: { symbols: ["🍂", "🍁"], count: 28 },
-        spring: { symbols: ["🌸", "🌼", "✿"], count: 26 }
+        spring: { symbols: ["🌸", "🌼", "✿"], count: 26 },
+        summer: { symbols: ["✦", "☀", "✧"], count: 30 }
       };
       const { symbols, count } = particleSets[selectedTheme];
       for (let i = 0; i < count; i++) {
