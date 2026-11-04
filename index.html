@@ -224,6 +224,12 @@
 
   <script>
     const MAX_PRO_BERUF = 10;
+    const MAX_PRO_BERUF_NACH_BERUF = {
+      Bauer: 100,
+      Fischer: 100,
+      Holzfäller: 100,
+      Minenarbeiter: 100
+    };
     const berufe = [
       "Schmied",
       "Marktschreier",
@@ -233,6 +239,8 @@
       "Bauer",
       "Metzger",
       "Fischer",
+      "Holzfäller",
+      "Minenarbeiter",
       "Ramschladenbesitzer"
     ];
 
@@ -275,8 +283,9 @@
     function renderJobs() {
       jobsEl.replaceChildren();
       berufe.forEach(beruf => {
+        const maxPlaetze = MAX_PRO_BERUF_NACH_BERUF[beruf] ?? MAX_PRO_BERUF;
         const belegt = spieler.filter(eintrag => eintrag.beruf === beruf).length;
-        const frei = Math.max(0, MAX_PRO_BERUF - belegt);
+        const frei = Math.max(0, maxPlaetze - belegt);
         const karte = document.createElement("article");
         karte.className = "job-card";
 
@@ -285,18 +294,18 @@
         const anzahl = document.createElement("p");
         anzahl.className = `job-count${frei === 0 ? " full" : ""}`;
         anzahl.textContent = frei === 0
-          ? `Ausgebucht (${belegt}/${MAX_PRO_BERUF})`
-          : `${frei} von ${MAX_PRO_BERUF} Plätzen frei (${belegt} belegt)`;
+          ? `Ausgebucht (${belegt}/${maxPlaetze})`
+          : `${frei} von ${maxPlaetze} Plätzen frei (${belegt} belegt)`;
         const balken = document.createElement("div");
         balken.className = "job-bar";
         balken.setAttribute("role", "progressbar");
         balken.setAttribute("aria-label", `Belegte Plätze für ${beruf}`);
         balken.setAttribute("aria-valuemin", "0");
-        balken.setAttribute("aria-valuemax", String(MAX_PRO_BERUF));
-        balken.setAttribute("aria-valuenow", String(Math.min(belegt, MAX_PRO_BERUF)));
+        balken.setAttribute("aria-valuemax", String(maxPlaetze));
+        balken.setAttribute("aria-valuenow", String(Math.min(belegt, maxPlaetze)));
         const fuellung = document.createElement("div");
         fuellung.className = `job-bar-fill${frei === 0 ? " full" : ""}`;
-        fuellung.style.width = `${Math.min(belegt / MAX_PRO_BERUF, 1) * 100}%`;
+        fuellung.style.width = `${Math.min(belegt / maxPlaetze, 1) * 100}%`;
         balken.appendChild(fuellung);
         karte.append(titel, anzahl, balken);
         jobsEl.appendChild(karte);
